@@ -1,0 +1,48 @@
+Shutterstock
+
+clientID: 4ec1e4604d0df001e322
+
+clientSecret: e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c
+
+curl "https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/images/search?query=DONKEY"
+
+
+
+$.getJSON('http://hipsterjesus.com/api/', function(data) {
+    $('#content').html( data.text );
+});
+
+endpoint: http://hipsterjesus.com/api/
+parameters:
+paras = [1 - 99] (default 4)
+type = ['hipster-latin', 'hipster-centric'] (default 'hipster-latin')
+html = ['false', 'true'] ( default 'true') - strips html from output, replaces p tags with newlines
+
+Watson personality analysis
+{
+  "url": "https://gateway.watsonplatform.net/personality-insights/api",
+  "password": "kgd8WXTvtEFE",
+  "username": "6435966e-16e7-4190-ac12-3d9162e55707"
+}
+
+Watson tone analysis
+{
+  "url": "https://gateway.watsonplatform.net/tone-analyzer/api",
+  "password": "HebDAFtfkJSb",
+  "username": "d7866d3a-cfa3-419f-89a5-20abd7b7eee5"
+}
+
+--
+
+Use Bootstrap?
+
+process:
+take hip ips
+analyze text for
+  emotion (picture)
+  style
+  social tendencies (music)
+
+create slideshow (slidesJS)
+  20 pics @ speed song.length/20?
+  custom options?

@@ -1,0 +1,36 @@
+Find best song-length-to-presentation-length match?
+
+Feed images back into Watson to double-check them?
+
+
+Writeup:
+Brief(3sent or less) description of project
+Bullet points of key features for MVP, then stretch goals
+Identify API--make sure Postman call works
+What data will persist using localStorage?
+
+
+
+Base functionality:
+  user must be able to grab ipsum via button
+  user must be able to send ipsum to Watson for analysis via button
+  user must be able to request a category of photos from shutterstock via button
+  user must be able to see a photo matched with text
+  user must be able to request music from shutterstock via button
+  user must be able to play music alongside photos & text
+  
+
+
+
+Stretch Goals:
+  automate ipsum-->Watson (remove user button)
+  automate Watsoninfo-->
+
+Ipsum Options:
+  Hipster
+  Meat-lover
+  Roman
+  Dino
+  Pony
+  Skater
+  Custom
