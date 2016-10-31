@@ -31,3 +31,18 @@ text.done(console.log(this));
 //     }
 // });
 // console.log('shutterstock photos,', $.getJSON("https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/images/search?query=APPLE"));
+
+$(document).ready(function() {
+    $("#ponyButton").click(function() {
+        $.getJSON('https://ponyipsum.com/api/?callback=?',
+            { 'type':'all-pony', 'paras':'5' },
+            function(ponyGoodness) {
+                if (ponyGoodness && ponyGoodness.length > 0) {
+                    $("#ponyIpsumOutput").html('');
+                    for (var i = 0; i < ponyGoodness.length; i++)
+                        $("#ponyIpsumOutput").append('<p>' + ponyGoodness[i] + '</p>');
+                    $("#ponyIpsumOutput").show();
+                }
+            });
+    });
+});
