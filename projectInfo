@@ -4,10 +4,23 @@ The purpose of project mockMe is to allow the user to create a mock-up presentat
 
 The technology we will be using is probably a combination of HTML, Javascript, and JQuery, with a chance of Bootstrap, popcorn.js, and perhaps reveal.js to make the slideshow work.
 
-The API's we will be using are (at a minimum) IBM Watson, Hipster Ipsum, Shutterstock Photos, and Shutterstock Music.
+The API's we will be using are (at a minimum) IBM Watson, Hipster Ipsum, Shutterstock Photos, and Shutterstock Music. There may be other Ipsums added in for stretch goals.
 
-Include a link to your wireframes.
+Wireframes:
 
-Include a link to the Pivotal tracker project.
+https://wireframe.cc/gWLfzi
+https://wireframe.cc/9O7yRs
+https://wireframe.cc/c7Hcup
+https://wireframe.cc/EuLmTx
 
-Include your MVP goals.
+Pivotal Tracker Project:
+
+https://www.pivotaltracker.com/n/projects/1908917
+
+MVP goals:
+User can retrieve hipster ipsum data from hipsterjesus via button
+Data can be automatically analyzed by Watson's Tone Analyzer
+User can retrieve matching photos from Shutterstock via button
+User can retrieve matching music from Shutterstock via button
+User can easily begin presentation as soon as text, photos, and music are successfully retrieved
+User can pause presentation, continue presentation, and restart process
