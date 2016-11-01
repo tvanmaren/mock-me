@@ -28,17 +28,23 @@ $(function() {
 
     function getWatsonInfo() {
         console.log('ready for Watson!');
-        $('#apiModal').modal();
+        $('#apiModal').modal(options);
         //Watson getJSON goes here
+        
         //Then pass to getShutterStockPhotos
     }
 
     function setup() {
         //insert page styling & setup here//
-        $('#setupModal').modal();
+        $('#setupModal').modal(options);
     }
+
+    //This runs once the DOM is ready
     setup();
+    var options = {
+        background: 'true',
+        keyboard: 'false'
+    };
     $('#hipster').click(getIpsum);
-    console.log('well, almost there.');
-    $('#setupModal').on('hide.bs.modal', getWatsonInfo);
+    $('#setupModal').on('hidden.bs.modal', getWatsonInfo);
 });
