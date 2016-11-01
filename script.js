@@ -2,13 +2,22 @@
 
 
 $(function() {
+  const options = {
+      background: 'false',
+      keyboard: 'false'
+  };
+  const watsonURL="http://g-watson-tristan.herokuapp.com/?text=";
+  const ipsumURL="http://hipsterjesus.com/api/"; //probably store this in the function, not here
+  const imageURL="https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/images/search?query=";
+  const musicURL="https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/audio/search?query=";
+
     function getIpsum(event) {
         var ipsum = $(event.target).text();
         switch (ipsum) {
             case 'Hipster':
                 {
                     console.log('you\'ve chosen the hipster Ipsum');
-                    $.getJSON('http://hipsterjesus.com/api/', function(hipsterGoodness) {
+                    $.getJSON(ipsumURL, function(hipsterGoodness) {
                         if (hipsterGoodness.text.length) {
                             console.log('storing', hipsterGoodness);
                             localStorage.setItem('ipsum', hipsterGoodness.text);
@@ -33,7 +42,7 @@ $(function() {
         $('#analyze').toggleClass('disabled');
         var text = localStorage.getItem('ipsum');
         //Watson getJSON goes here
-        $.getJSON("http://g-watson-tristan.herokuapp.com/?text=" + text, function(toneAnalysis) {
+        $.getJSON(watsonURL+text, function(toneAnalysis) {
             if (toneAnalysis.sentences_tone.length) {
                 console.log('storing', toneAnalysis);
                 localStorage.setItem('sentenceTones', JSON.stringify(toneAnalysis.sentences_tone));
@@ -65,16 +74,15 @@ $(function() {
             "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
           }
       });
-      console.log($.getJSON("https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/images/search?query="+category, function (imageData) {
-        if (imageData.responseText.length) {
+      $.getJSON(imageURL+category, function (imageData) {
+        if (imageData.data.length) {
           console.log('storing',imageData);
-          localStorage.setItem('images',JSON.stringify(imageData.responseJSON.data));
+          localStorage.setItem('images',JSON.stringify(imageData.data));
           console.log('stored',localStorage.getItem('images'));
           $('#music').toggleClass('disabled');
-        } else {
-          console.log('no response');
         }
-      }));
+      });
+      //Then enable listener for getShutterStockMusic
       $('#music').click(getShutterStockMusic);
       return;
     }
@@ -84,6 +92,19 @@ $(function() {
       if ($('#music').hasClass('disabled')) {
         return;
       }
+      //parse Watson data for category here
+      var category='nature';
+      //parse Watson data for category here
+      $.getJSON(musicURL+category, function(musicData) {
+        if (musicData.data.length) {
+          console.log('storing',musicData);
+          localStorage.setItem('music',JSON.stringify(musicData.data));
+          console.log('stored',localStorage.getItem('music'));
+          $('#apiModal').modal('hide');
+          //pass to slideshow here
+        }
+      });
+      return;
     }
 
     function setup() {
@@ -92,10 +113,7 @@ $(function() {
     }
 
     //Run this once the DOM is ready
-    const options = {
-        background: 'false',
-        keyboard: 'false'
-    };
+
     setup();
     $('#hipster').click(getIpsum);
     $('#setupModal').on('hidden.bs.modal', getWatsonInfo);
