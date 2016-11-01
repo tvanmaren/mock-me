@@ -24,14 +24,66 @@ $(function() {
                     return;
                 }
         }
+        return;
     }
 
     function getWatsonInfo() {
         console.log('ready for Watson!');
         $('#apiModal').modal(options);
+        $('#analyze').toggleClass('disabled');
+        var text = localStorage.getItem('ipsum');
         //Watson getJSON goes here
-        
-        //Then pass to getShutterStockPhotos
+        $.getJSON("http://g-watson-tristan.herokuapp.com/?text=" + text, function(toneAnalysis) {
+            if (toneAnalysis.sentences_tone.length) {
+                console.log('storing', toneAnalysis);
+                localStorage.setItem('sentenceTones', JSON.stringify(toneAnalysis.sentences_tone));
+                localStorage.setItem('overallTone', JSON.stringify(toneAnalysis.document_tone.tone_categories));
+                console.log('stored sentences', localStorage.getItem('sentenceTones'));
+                console.log('stored document', localStorage.getItem('overallTone')
+                );
+                $('#images').toggleClass('disabled');
+            }
+        });
+        //Then enable listener for getShutterStockPhotos
+        $('#images').click(getShutterStockPhotos);
+        return;
+    }
+
+    function getShutterStockPhotos() {
+      //check if button is disabled or not
+      if ($('#images').hasClass('disabled')) {
+        console.log('button disabled');
+        return;
+      }
+      //parse Watson data for category here
+      var category='nature';
+      //parse Watson data for category here
+      var USERNAME="4ec1e4604d0df001e322";
+      var PASSWORD="e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c";
+      $.ajaxSetup({
+        headers: {
+            "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
+          }
+      });
+      console.log($.getJSON("https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/images/search?query="+category, function (imageData) {
+        if (imageData.responseText.length) {
+          console.log('storing',imageData);
+          localStorage.setItem('images',JSON.stringify(imageData.responseJSON.data));
+          console.log('stored',localStorage.getItem('images'));
+          $('#music').toggleClass('disabled');
+        } else {
+          console.log('no response');
+        }
+      }));
+      $('#music').click(getShutterStockMusic);
+      return;
+    }
+
+    function getShutterStockMusic() {
+      //check if button is disabled or not
+      if ($('#music').hasClass('disabled')) {
+        return;
+      }
     }
 
     function setup() {
@@ -39,12 +91,12 @@ $(function() {
         $('#setupModal').modal(options);
     }
 
-    //This runs once the DOM is ready
-    setup();
-    var options = {
-        background: 'true',
+    //Run this once the DOM is ready
+    const options = {
+        background: 'false',
         keyboard: 'false'
     };
+    setup();
     $('#hipster').click(getIpsum);
     $('#setupModal').on('hidden.bs.modal', getWatsonInfo);
 });
