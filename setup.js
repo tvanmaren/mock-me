@@ -1,5 +1,7 @@
 'use strict';
 
+
+var category='nature'; //default to nature photos&music
 const options = {
     backdrop: 'static',
     keyboard: false
@@ -71,7 +73,8 @@ function getShutterStockPhotos() {
         $('#images').addClass('disabled');
     }
     //PARSE Watson data for category here
-    var category = 'nature';
+    parseSentences();
+    category=parseIpsum();
     //PARSE Watson data for category here
     var USERNAME = "4ec1e4604d0df001e322";
     var PASSWORD = "e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c";
@@ -101,7 +104,7 @@ function getShutterStockMusic() {
         $('#music').addClass('disabled');
     }
     //PARSE Watson data for category here
-    var category = 'disgust';
+    category=parseIpsum();
     //PARSE Watson data for category here
     $.getJSON(musicURL + category, function(musicData) {
         if (musicData.data.length) {
@@ -124,7 +127,7 @@ function getShutterStockVideo() {
         $('#video').addClass('disabled');
     }
     //PARSE Watson data for category here
-    var category = 'nature';
+    category=parseIpsum();
     //PARSE Watson data for category here
     $.getJSON(videoURL + category, function(videoData) {
         if (videoData.data.length) {

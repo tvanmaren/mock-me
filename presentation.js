@@ -1,5 +1,7 @@
 'use strict';
 
+const wordNum=5;
+
 function resetPage() {
     $('body #myCarousel').remove();
     $('audio').remove();
@@ -43,15 +45,14 @@ function playPause() {
 function streamImages() {
     var slideIndicator, slideWrapper, slideCaption, slideHead, slideText;
     var images = JSON.parse(localStorage.getItem('images'));
-    var ipsum = localStorage.getItem('ipsum').split(' ');
+    var ipsum = JSON.parse(localStorage.getItem('splitIpsum'));
     for (let i = 0; i < images.length; i++) {
         //setup the slide itself//
         slideIndicator = '<li data-target="#myCarousel" data-slide-to=' + i + '></li>';
         $('.carousel-indicators').append(slideIndicator);
 
         //grab ipsum caption//
-        slideHead = ipsum.slice((i * 5), (5 + i * 5)).join(' ');
-        console.log(slideHead);
+        slideHead = ipsum[i];
 
         slideText = '';
         // slideText = images[i].description; //too much info here
