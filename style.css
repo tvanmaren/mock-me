@@ -1,0 +1,26 @@
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  width: 75%;
+  height: auto;
+  margin: auto;
+}
+
+.carousel-caption {
+   position: fixed;
+   top: 150px;
+}
+
+audio {
+   display:none;
+}
+
+#carouselButtons {
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 48%;
+    top: 15px;
+}
