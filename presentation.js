@@ -63,16 +63,14 @@ function streamImages() {
     }
     $('.carousel-indicators :first-child').addClass('active');
     $('.carousel-inner :first-child').addClass('active');
-    $('#myCarousel').carousel({
-        interval: 3000,
-        pause: "false"
-    });
 }
 
 function streamMusic() {
     var music = JSON.parse(localStorage.getItem('music'));
-    $('body').append('<audio controls autoplay></audio>');
-    var toStream = music[Math.floor((Math.random() * music.length))];
+    $('body').append('<audio></audio>');
+    let index=Math.floor((Math.random() * music.length));
+    console.log(index);
+    let toStream = music[index];
     $('audio').append('<span>'+toStream.description+'</span>');
     $('audio').append('<source src="' + toStream.assets.preview_ogg.url + '" type="audio/ogg"><source src="' + toStream.assets.preview_mp3.url + '" type="audio/mpeg">');
 }

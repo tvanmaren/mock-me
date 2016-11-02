@@ -133,7 +133,11 @@ function getShutterStockVideo() {
             console.log('stored', localStorage.getItem('video'));
             $('#apiModal').modal('hide');
             //pass to slideshow here
-            return;
+            setTimeout(function(){$('#myCarousel').carousel({
+                interval: 3000,
+                pause: false
+            });}, 2000);
+            setTimeout(function(){$('audio').get(0).play();}, 2000);
         }
     });
     return;
