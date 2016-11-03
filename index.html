@@ -16,10 +16,10 @@
 </head>
 
 <body>
-  <!-- Bootstrap Carousel of Slides -->
-  <!-- Will be injected by JS once images retrieved from API -->
+    <!-- Bootstrap Carousel of Slides -->
+    <!-- Will be injected by JS once images retrieved from API -->
 
-<!-- Bootstrap Modal Setup Windows -->
+    <!-- Bootstrap Modal Setup Windows -->
     <!-- Ipsum Modal -->
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="ipsumModal">
         <div class="modal-dialog modal-lg" role="document">
@@ -29,7 +29,8 @@
                     <button id="hipster" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">Hipster</button>
                     <button id="pony" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">Pony</button>
                     <button id="dino" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">Dino</button>
-                    <button id="skater" data-loading-text="Loading..." class="btn btn-primary disabled" autocomplete="off">Skater</button>
+                    <button id="skater" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">Skater</button>
+                    <button id="bacon" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">Pig</button>
                 </div>
             </div>
         </div>
@@ -39,7 +40,7 @@
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="apiModal">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <h4 class="modal-title">Click to analyze your data and retrieve each component of your presentation.</h4>
+                <h4 class="modal-title">Click each button in turn to generate your presentation.</h4>
                 <div class="modal-body">
                     <button id="analyze" data-loading-text="Loading..." class="btn btn-primary disabled" autocomplete="off">Analyze</button>
                     <button id="images" data-loading-text="Loading..." class="btn btn-primary disabled" autocomplete="off">Images</button>
@@ -50,12 +51,14 @@
         </div>
     </div>
 
-<!-- Plugins -->
+    <!-- Plugins -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- <script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script> -->
+    <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+    <script src="./getIpsum.js"></script>
     <script src="./setup.js"></script>
     <script src="./presentation.js"></script>
     <script src="./parser.js"></script>

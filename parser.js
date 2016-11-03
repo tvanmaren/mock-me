@@ -13,8 +13,8 @@ function parseSentences() {
   var sentences=JSON.parse(localStorage.getItem('sentenceTones'));
   //looking at each sentence Watson analyzed
   for (let i=0; i<sentences.length; i++) {
+    console.log('finding emotion of',sentences[i].text);
     //find sentence's strongest emotion
-    if (sentences[i].tone_categories.length) { //fix for ampersand error
     let sentenceTone=strongestTone(0,sentences[i].tone_categories);
     //split sentence into sets of captions
     let splitText=sentences[i].text.split(' ');
@@ -26,9 +26,6 @@ function parseSentences() {
     for (let i=0; i<text.length; i++) {
       analysis[text[i]]=sentenceTone;
     }
-  } else {
-    analysis[sentences[i].text]='PBR&B';
-  }
   }
   //save the five-word pieces for future use
   localStorage.setItem('splitIpsum',JSON.stringify(Object.keys(analysis)));
@@ -36,6 +33,7 @@ function parseSentences() {
   }
 
 function strongestTone(index, analysis) {
+  console.log('analyzing strongestTone:',analysis);
   //analysis can be overallTone or one sentence from sentenceTone
   //index at 0-->emotional tone
   //index at 1-->language tone

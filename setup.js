@@ -2,75 +2,15 @@
 
 
 var category = 'nature'; //default to nature photos&music
-var ipsumURL = 'http://hipsterjesus.com/api/?type=hipster-centric'; //default to hipsterIpsum
-const options = {
-    backdrop: 'static',
-    keyboard: false
-};
+var getPage=1;
+
 const watsonURL = "http://g-watson-tristan.herokuapp.com/?text=";
-const imageURL = "https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/images/search?image_type=photo&license=commercial&orientation=horizontal&sort=popular&view=full&query=";
+
+const imageURL = "https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/images/search?image_type=photo&license=commercial&page="+getPage+"&orientation=horizontal&sort=random&view=full&query=";
 
 const musicURL = "https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/audio/search?query=";
-const videoURL = "https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/videos/search?query=";
 
-function getIpsum(event) {
-    var ipsum = $(event.target).text();
-    console.log('ipsum is',ipsum);
-    switch (ipsum) {
-        case 'Hipster':
-            {
-                ipsumURL = 'http://hipsterjesus.com/api/?type=hipster-centric';
-                $.getJSON(ipsumURL, function(hipsterGoodness) {
-                    if (hipsterGoodness.text.length) {
-                        localStorage.setItem('ipsum', hipsterGoodness.text);
-                        $('#ipsumModal').modal('hide');
-                        $('#apiModal').modal(options);
-                        $('#analyze').removeClass('disabled');
-                    }
-                });
-                break;
-            }
-        case 'Pony':
-        {
-          ipsumURL='http://ponyipsum.com/api/?type=all-pony';
-          $.getJSON(ipsumURL, function(ponyGoodness) {
-            console.log(ponyGoodness);
-              if (ponyGoodness) {
-                  localStorage.setItem('ipsum', ponyGoodness.join(' '));
-                  $('#ipsumModal').modal('hide');
-                  $('#apiModal').modal(options);
-                  $('#analyze').removeClass('disabled');
-              }
-          });
-          break;
-        }
-        case 'Dino':
-        {
-          ipsumURL='http://dinoipsum.herokuapp.com/api/?format=json&paragraphs=5';
-          $.getJSON(ipsumURL, function(dinoGoodness) {
-            console.log(dinoGoodness);
-              if (dinoGoodness) {
-                dinoGoodness=dinoGoodness.map(function(array) {return array.map(function(element) {return element;}).join(' ');}).join('. ');
-                dinoGoodness+='.';
-                captionSize=3;
-                console.log(dinoGoodness);
-                  localStorage.setItem('ipsum', dinoGoodness);
-                  $('#ipsumModal').modal('hide');
-                  $('#apiModal').modal(options);
-                  $('#analyze').removeClass('disabled');
-              }
-          });
-          break;
-        }
-        default:
-            {
-                console.log('you didn\'t choose an ipsum');
-                return;
-            }
-    }
-    $('#analyze').click(getWatsonInfo);
-    return;
-}
+const videoURL = "https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/videos/search?query=";
 
 function getWatsonInfo() {
     if ($('#analyze').hasClass('disabled')) {
@@ -79,9 +19,9 @@ function getWatsonInfo() {
     } else {
         $('#analyze').addClass('disabled');
     }
-    var text = localStorage.getItem('ipsum');
+    var ipsumText = localStorage.getItem('ipsum');
     //Watson getJSON goes here
-    $.getJSON(watsonURL + text, function(toneAnalysis) {
+    $.getJSON(watsonURL + ipsumText, function(toneAnalysis) {
         console.log('toneAnalysis', toneAnalysis);
         try {
         if (toneAnalysis.sentences_tone.length) {
@@ -125,11 +65,21 @@ function getShutterStockPhotos() {
     $.getJSON(imageURL + category, function(imageData) {
         if (imageData.data.length) {
             localStorage.setItem('images', JSON.stringify(imageData.data));
-            $('#music').removeClass('disabled');
-            streamImages();
-            $('#music').click(getShutterStockMusic);
             return;
         }
+    });
+    getPage++;
+    $.getJSON(imageURL+category, function(imageData) {
+      if (imageData.data.length && localStorage.getItem('images')) {
+        let images=JSON.parse(localStorage.getItem('images'));
+        console.log(images);
+        images=images.concat(imageData.data);
+        localStorage.setItem('images', JSON.stringify(images));
+        $('#music').removeClass('disabled');
+        streamImages();
+        $('#music').click(getShutterStockMusic);
+        return;
+      }
     });
     //Enable listener for getShutterStockMusic
 }
@@ -189,8 +139,8 @@ function getShutterStockVideo() {
 
 function setup() {
     //insert page styling & setup here//
-    $('#ipsumModal').modal(options);
-    $('#ipsumModal').click(getIpsum);
+    $('#ipsumModal').modal(options); //displaying the ipsum modal
+    $('#ipsumModal').click(getIpsum); //listening for buttons
     return;
 }
 

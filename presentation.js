@@ -45,6 +45,7 @@ function streamImages() {
     var slideIndicator, slideWrapper, slideCaption, slideHead, slideText;
     var images = JSON.parse(localStorage.getItem('images'));
     var ipsum = JSON.parse(localStorage.getItem('splitIpsum'));
+    console.log('you have',images.length,'images');
     for (let i = 0; i < images.length; i++) {
         //setup the slide itself//
         slideIndicator = '<li data-target="#myCarousel" data-slide-to=' + i + '></li>';
@@ -63,6 +64,10 @@ function streamImages() {
     }
     $('.carousel-indicators :first-child').addClass('active');
     $('.carousel-inner :first-child').addClass('active');
+    $('#myCarousel').on('slid.bs.carousel', function() {
+      responsiveVoice.speak($(this).find('.active .carousel-caption h1').text());
+    });
+    return;
 }
 
 function streamMusic() {
@@ -73,6 +78,7 @@ function streamMusic() {
     let toStream = music[index];
     $('audio').append('<span>'+toStream.description+'</span>');
     $('audio').append('<source src="' + toStream.assets.preview_ogg.url + '" type="audio/ogg"><source src="' + toStream.assets.preview_mp3.url + '" type="audio/mpeg">');
+    $('audio volume').val(1/2);
 }
 
 $(function() {
