@@ -1,7 +1,5 @@
 'use strict';
 
-const wordNum=5;
-
 function resetPage() {
     $('body #myCarousel').remove();
     $('audio').remove();

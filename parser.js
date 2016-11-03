@@ -1,5 +1,7 @@
 "use strict";
 
+var captionSize=5; //default to five words per slide
+
 function parseIpsum() {
   var answer=strongestTone(0, JSON.parse(localStorage.getItem('overallTone')));
   return answer;
@@ -14,13 +16,13 @@ function parseSentences() {
     //find sentence's strongest emotion
     if (sentences[i].tone_categories.length) { //fix for ampersand error
     let sentenceTone=strongestTone(0,sentences[i].tone_categories);
-    //split sentence into sets of five words
+    //split sentence into sets of captions
     let splitText=sentences[i].text.split(' ');
-    while (splitText.length>5) {
-      text.push(splitText.splice(0, 5).join(' '));
+    while (splitText.length>captionSize) {
+      text.push(splitText.splice(0, captionSize).join(' '));
     }
     text.push(splitText.join(' '));
-    //index the tone of each five-word set
+    //index the tone of each caption
     for (let i=0; i<text.length; i++) {
       analysis[text[i]]=sentenceTone;
     }

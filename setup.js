@@ -52,6 +52,7 @@ function getIpsum(event) {
               if (dinoGoodness) {
                 dinoGoodness=dinoGoodness.map(function(array) {return array.map(function(element) {return element;}).join(' ');}).join('. ');
                 dinoGoodness+='.';
+                captionSize=3;
                 console.log(dinoGoodness);
                   localStorage.setItem('ipsum', dinoGoodness);
                   $('#ipsumModal').modal('hide');
