@@ -9,6 +9,14 @@ function resetPage() {
     setup();
 }
 
+function nextSlide() {
+  $('#myCarousel').carousel('next');
+}
+
+function previousSlide() {
+  $('#myCarousel').carousel('');
+}
+
 function setupCarousel() {
     //create Carousel//
     $('body').append('<div id="myCarousel" class="carousel slide" data-ride="carousel"><ol class="carousel-indicators"></ol><div class="carousel-inner" role="listbox"></div></div>');
@@ -25,18 +33,19 @@ function setupCarousel() {
 }
 
 function playPause() {
+    var pop=Popcorn('#audio');
     var $button = $('#pausePlayButton span');
     if ($button.hasClass('glyphicon-play')) {
         $button.removeClass('glyphicon-play');
         $button.addClass('glyphicon-pause');
-        $('#myCarousel').carousel('cycle');
-        $('audio').get(0).play();
+        pop.play();
+        responsiveVoice.resume();
         return;
     } else if ($button.hasClass('glyphicon-pause')) {
         $button.removeClass('glyphicon-pause');
         $button.addClass('glyphicon-play');
-        $('#myCarousel').carousel('pause');
-        $('audio').get(0).pause();
+        pop.pause();
+        responsiveVoice.pause();
         return;
     }
 }
@@ -78,7 +87,6 @@ function streamMusic() {
     let toStream = music[index];
     $('audio').append('<span>'+toStream.description+'</span>');
     $('audio').append('<source src="' + toStream.assets.preview_ogg.url + '" type="audio/ogg"><source src="' + toStream.assets.preview_mp3.url + '" type="audio/mpeg">');
-    $('audio').prop("volume", (1/2));
 }
 
 $(function() {
