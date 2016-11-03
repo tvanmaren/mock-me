@@ -6,8 +6,9 @@ function resetPage() {
     $('body #myCarousel').remove();
     $('audio').remove();
     setupCarousel();
+    $('#ipsumModal').modal('hide');
+    $('#apiModal').modal('hide');
     setup();
-    $('#hipster').click(getIpsum);
 }
 
 function setupCarousel() {

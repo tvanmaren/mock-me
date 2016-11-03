@@ -1,28 +1,28 @@
 'use strict';
 
 
-var category='nature'; //default to nature photos&music
+var category = 'nature'; //default to nature photos&music
+var ipsumURL = 'http://hipsterjesus.com/api/?type=hipster-centric'; //default to hipsterIpsum
 const options = {
     backdrop: 'static',
     keyboard: false
 };
 const watsonURL = "http://g-watson-tristan.herokuapp.com/?text=";
-const ipsumURL = 'http://hipsterjesus.com/api/?type=hipster-centric'; //probably store this in the function, not here
-const imageURL = "https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/images/search?query=";
+const imageURL = "https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/images/search?image_type=photo&license=commercial&orientation=horizontal&sort=popular&view=full&query=";
+
 const musicURL = "https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/audio/search?query=";
 const videoURL = "https://4ec1e4604d0df001e322:e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c@api.shutterstock.com/v2/videos/search?query=";
 
 function getIpsum(event) {
     var ipsum = $(event.target).text();
+    console.log('ipsum is',ipsum);
     switch (ipsum) {
         case 'Hipster':
             {
-                console.log('you\'ve chosen the hipster Ipsum');
+                ipsumURL = 'http://hipsterjesus.com/api/?type=hipster-centric';
                 $.getJSON(ipsumURL, function(hipsterGoodness) {
                     if (hipsterGoodness.text.length) {
-                        console.log('storing', hipsterGoodness);
                         localStorage.setItem('ipsum', hipsterGoodness.text);
-                        console.log('stored', localStorage.getItem('ipsum'));
                         $('#ipsumModal').modal('hide');
                         $('#apiModal').modal(options);
                         $('#analyze').removeClass('disabled');
@@ -30,6 +30,37 @@ function getIpsum(event) {
                 });
                 break;
             }
+        case 'Pony':
+        {
+          ipsumURL='http://ponyipsum.com/api/?type=all-pony';
+          $.getJSON(ipsumURL, function(ponyGoodness) {
+            console.log(ponyGoodness);
+              if (ponyGoodness) {
+                  localStorage.setItem('ipsum', ponyGoodness.join(' '));
+                  $('#ipsumModal').modal('hide');
+                  $('#apiModal').modal(options);
+                  $('#analyze').removeClass('disabled');
+              }
+          });
+          break;
+        }
+        case 'Dino':
+        {
+          ipsumURL='http://dinoipsum.herokuapp.com/api/?format=json&paragraphs=5';
+          $.getJSON(ipsumURL, function(dinoGoodness) {
+            console.log(dinoGoodness);
+              if (dinoGoodness) {
+                dinoGoodness=dinoGoodness.map(function(array) {return array.map(function(element) {return element;}).join(' ');}).join('. ');
+                dinoGoodness+='.';
+                console.log(dinoGoodness);
+                  localStorage.setItem('ipsum', dinoGoodness);
+                  $('#ipsumModal').modal('hide');
+                  $('#apiModal').modal(options);
+                  $('#analyze').removeClass('disabled');
+              }
+          });
+          break;
+        }
         default:
             {
                 console.log('you didn\'t choose an ipsum');
@@ -50,17 +81,23 @@ function getWatsonInfo() {
     var text = localStorage.getItem('ipsum');
     //Watson getJSON goes here
     $.getJSON(watsonURL + text, function(toneAnalysis) {
+        console.log('toneAnalysis', toneAnalysis);
+        try {
         if (toneAnalysis.sentences_tone.length) {
-            console.log('storing', toneAnalysis);
             localStorage.setItem('sentenceTones', JSON.stringify(toneAnalysis.sentences_tone));
             localStorage.setItem('overallTone', JSON.stringify(toneAnalysis.document_tone.tone_categories));
-            console.log('stored sentences', localStorage.getItem('sentenceTones'));
-            console.log('stored document', localStorage.getItem('overallTone'));
             $('#images').removeClass('disabled');
+            $('#images').click(getShutterStockPhotos);
+            return;
         }
+      }
+      catch(err) {
+        alert('Too tasteless! Try again!');
+        resetPage();
+      }
     });
     //Then enable listener for getShutterStockPhotos
-    $('#images').click(getShutterStockPhotos);
+
     return;
 }
 
@@ -73,8 +110,9 @@ function getShutterStockPhotos() {
         $('#images').addClass('disabled');
     }
     //PARSE Watson data for category here
-    parseSentences();
-    category=parseIpsum();
+    console.log(parseSentences());
+    category = parseIpsum();
+    console.log('grabbing', category, 'photos');
     //PARSE Watson data for category here
     var USERNAME = "4ec1e4604d0df001e322";
     var PASSWORD = "e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c";
@@ -85,15 +123,14 @@ function getShutterStockPhotos() {
     });
     $.getJSON(imageURL + category, function(imageData) {
         if (imageData.data.length) {
-            console.log('storing', imageData);
             localStorage.setItem('images', JSON.stringify(imageData.data));
-            console.log('stored', localStorage.getItem('images'));
             $('#music').removeClass('disabled');
+            streamImages();
+            $('#music').click(getShutterStockMusic);
+            return;
         }
     });
-    //Then enable listener for getShutterStockMusic
-    $('#music').click(getShutterStockMusic);
-    return streamImages();
+    //Enable listener for getShutterStockMusic
 }
 
 function getShutterStockMusic() {
@@ -104,19 +141,20 @@ function getShutterStockMusic() {
         $('#music').addClass('disabled');
     }
     //PARSE Watson data for category here
-    category=parseIpsum();
+    category = parseIpsum();
+    console.log('grabbing', category, 'music');
     //PARSE Watson data for category here
     $.getJSON(musicURL + category, function(musicData) {
         if (musicData.data.length) {
-            console.log('storing', musicData);
             localStorage.setItem('music', JSON.stringify(musicData.data));
-            console.log('stored', localStorage.getItem('music'));
             $('#video').removeClass('disabled');
+            streamMusic();
+            $('#video').click(getShutterStockVideo);
+            return;
         }
     });
     //Then enable listener for getShutterStockVideo
-    $('#video').click(getShutterStockVideo);
-    return streamMusic();
+
 }
 
 function getShutterStockVideo() {
@@ -127,33 +165,37 @@ function getShutterStockVideo() {
         $('#video').addClass('disabled');
     }
     //PARSE Watson data for category here
-    category=parseIpsum();
+    category = parseIpsum();
+    console.log('grabbing', category, 'videos');
     //PARSE Watson data for category here
     $.getJSON(videoURL + category, function(videoData) {
         if (videoData.data.length) {
-            console.log('storing', videoData);
             localStorage.setItem('video', JSON.stringify(videoData.data));
-            console.log('stored', localStorage.getItem('video'));
             $('#apiModal').modal('hide');
             //pass to slideshow here
-            setTimeout(function(){$('#myCarousel').carousel({
-                interval: 3000,
-                pause: false
-            });}, 2000);
-            setTimeout(function(){$('audio').get(0).play();}, 2000);
+            setTimeout(function() {
+                $('#myCarousel').carousel({
+                    interval: 3000,
+                    pause: false
+                });
+            }, 2000);
+            return setTimeout(function() {
+                $('audio').get(0).play();
+            }, 2000);
         }
     });
-    return;
 }
 
 function setup() {
     //insert page styling & setup here//
     $('#ipsumModal').modal(options);
+    $('#ipsumModal').click(getIpsum);
+    return;
 }
 
 //Run this once the DOM is ready
 $(function() {
+    localStorage.clear();
     setup();
-    $('#hipster').click(getIpsum);
     // $('#ipsumModal').on('hidden.bs.modal', getWatsonInfo); //use this method in order to automate (hide) the watson API call
 });
