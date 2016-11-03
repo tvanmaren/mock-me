@@ -130,8 +130,9 @@ function getShutterStockVideo() {
                     pause: false
                 });
             }, 2000);
+            var pop=Popcorn('#audio');
             return setTimeout(function() {
-                $('audio').get(0).play();
+                pop.play();
             }, 2000);
         }
     });

@@ -88,6 +88,14 @@ function getIpsum(event) {
           });
           break;
         }
+        case 'Custom':
+        {
+          localStorage.setItem('ipsum',prompt('please enter your ipsum:'));
+          $('#ipsumModal').modal('hide');
+          $('#apiModal').modal(options);
+          $('#analyze').removeClass('disabled');
+          break;
+        }
         default:
             {
                 console.log('you didn\'t choose an ipsum');

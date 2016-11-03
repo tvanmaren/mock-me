@@ -65,20 +65,20 @@ function streamImages() {
     $('.carousel-indicators :first-child').addClass('active');
     $('.carousel-inner :first-child').addClass('active');
     $('#myCarousel').on('slid.bs.carousel', function() {
-      responsiveVoice.speak($(this).find('.active .carousel-caption h1').text());
+      responsiveVoice.speak($('#myCarousel').find('.active .carousel-caption h1').text());
     });
     return;
 }
 
 function streamMusic() {
     var music = JSON.parse(localStorage.getItem('music'));
-    $('body').append('<audio></audio>');
+    $('body').append('<audio id="audio"></audio>');
     let index=Math.floor((Math.random() * music.length));
     console.log(index);
     let toStream = music[index];
     $('audio').append('<span>'+toStream.description+'</span>');
     $('audio').append('<source src="' + toStream.assets.preview_ogg.url + '" type="audio/ogg"><source src="' + toStream.assets.preview_mp3.url + '" type="audio/mpeg">');
-    $('audio volume').val(1/2);
+    $('audio').prop("volume", (1/2));
 }
 
 $(function() {
