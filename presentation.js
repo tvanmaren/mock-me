@@ -1,6 +1,7 @@
 'use strict';
 
 function resetPage() {
+    responsiveVoice.cancel();
     $('body #myCarousel').remove();
     $('audio').remove();
     setupCarousel();
@@ -10,30 +11,33 @@ function resetPage() {
 }
 
 function nextSlide() {
-  $('#myCarousel').carousel('next');
+    $('#myCarousel').carousel('next');
+    return;
 }
 
 function previousSlide() {
-  $('#myCarousel').carousel('');
+    $('#myCarousel').carousel('prev');
+    return;
 }
 
 function setupCarousel() {
     //create Carousel//
     $('body').append('<div id="myCarousel" class="carousel slide" data-ride="carousel"><ol class="carousel-indicators"></ol><div class="carousel-inner" role="listbox"></div></div>');
     //add left control//
-    $('#myCarousel').append('<a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="icon-prev"></span></a>');
+    $('#myCarousel').append('<a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>');
     //add right control//
-    $('#myCarousel').append('<a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="icon-next"></span></a>');
+    $('#myCarousel').append('<a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>');
     //add Play/Pause button//
     $('#myCarousel').append('<div id="carouselButtons"><button id="pausePlayButton" type="button" class="btn btn-default btn-xl"><span class="glyphicon glyphicon-pause"></span></button></div>');
     $('#pausePlayButton').click(playPause);
     //add Reset button//
     $('#carouselButtons').append('<button id="resetButton" type="button" class="btn btn-default btn-xl"><span class="glyphicon glyphicon-refresh"></span></button>');
     $('#resetButton').click(resetPage);
+    return;
 }
 
 function playPause() {
-    var pop=Popcorn('#audio');
+    var pop = Popcorn('#audio');
     var $button = $('#pausePlayButton span');
     if ($button.hasClass('glyphicon-play')) {
         $button.removeClass('glyphicon-play');
@@ -54,7 +58,7 @@ function streamImages() {
     var slideIndicator, slideWrapper, slideCaption, slideHead, slideText;
     var images = JSON.parse(localStorage.getItem('images'));
     var ipsum = JSON.parse(localStorage.getItem('splitIpsum'));
-    console.log('you have',images.length,'images');
+    console.log('you have', images.length, 'images');
     for (let i = 0; i < images.length; i++) {
         //setup the slide itself//
         slideIndicator = '<li data-target="#myCarousel" data-slide-to=' + i + '></li>';
@@ -73,8 +77,13 @@ function streamImages() {
     }
     $('.carousel-indicators :first-child').addClass('active');
     $('.carousel-inner :first-child').addClass('active');
+    $('#myCarousel').carousel({
+      wrap: false,
+      pause: null,
+      interval: 0
+    });
     $('#myCarousel').on('slid.bs.carousel', function() {
-      responsiveVoice.speak($('#myCarousel').find('.active .carousel-caption h1').text());
+        responsiveVoice.speak($('#myCarousel').find('.active .carousel-caption h1').text());
     });
     return;
 }
@@ -82,11 +91,12 @@ function streamImages() {
 function streamMusic() {
     var music = JSON.parse(localStorage.getItem('music'));
     $('body').append('<audio id="audio"></audio>');
-    let index=Math.floor((Math.random() * music.length));
+    let index = Math.floor((Math.random() * music.length));
     console.log(index);
     let toStream = music[index];
-    $('audio').append('<span>'+toStream.description+'</span>');
+    $('audio').append('<span>' + toStream.description + '</span>');
     $('audio').append('<source src="' + toStream.assets.preview_ogg.url + '" type="audio/ogg"><source src="' + toStream.assets.preview_mp3.url + '" type="audio/mpeg">');
+    return;
 }
 
 $(function() {
