@@ -90,7 +90,7 @@ function getIpsum(event) {
         }
         case 'Custom':
         {
-          localStorage.setItem('ipsum',prompt('please enter your ipsum:'));
+          localStorage.setItem('ipsum',encodeURIComponent(prompt('please enter your ipsum:')));
           $('#ipsumModal').modal('hide');
           $('#apiModal').modal(options);
           $('#analyze').removeClass('disabled');
