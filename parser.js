@@ -3,18 +3,19 @@
 var captionSize=5; //default to five words per slide
 
 function parseIpsum() {
-  var answer=strongestTone(0, JSON.parse(localStorage.getItem('overallTone')));
+  var answer=strongestTone(0, JSON.parse(sessionStorage.getItem('overallTone')));
   return answer;
 }
 
 function parseSentences() {
   var text=[];
   var analysis={};
-  var sentences=JSON.parse(localStorage.getItem('sentenceTones'));
+  var sentences=JSON.parse(sessionStorage.getItem('sentenceTones'));
   //looking at each sentence Watson analyzed
   for (let i=0; i<sentences.length; i++) {
     console.log('finding emotion of',sentences[i].text);
     //find sentence's strongest emotion
+    try {
     let sentenceTone=strongestTone(0,sentences[i].tone_categories);
     //split sentence into sets of captions
     let splitText=sentences[i].text.split(' ');
@@ -26,9 +27,13 @@ function parseSentences() {
     for (let i=0; i<text.length; i++) {
       analysis[text[i]]=sentenceTone;
     }
+  } catch (err) {
+    console.log('error in ipsum data! autocorrecting',err);
+    analysis[sentences[i].text]=err;
   }
+}
   //save the five-word pieces for future use
-  localStorage.setItem('splitIpsum',JSON.stringify(Object.keys(analysis)));
+  sessionStorage.setItem('splitIpsum',JSON.stringify(Object.keys(analysis)));
   return analysis;
   }
 

@@ -7,6 +7,15 @@ const options = {
 
 var ipsumURL = 'http://hipsterjesus.com/api/?type=hipster-centric'; //default to hipsterIpsum
 
+function readyNextButton(sourceID, destinationID, destinationClickFunction) {
+  $(sourceID).addClass('disabled');
+  $(destinationID).removeClass('btn-danger');
+  $(destinationID).addClass('btn-success');
+  $(destinationID).removeClass('disabled');
+  $(destinationID).click(destinationClickFunction);
+  return;
+}
+
 function getIpsum(event) {
     var ipsum = $(event.target).text();
     console.log('ipsum is',ipsum);
@@ -16,10 +25,10 @@ function getIpsum(event) {
                 ipsumURL = 'http://hipsterjesus.com/api/?type=hipster-centric';
                 $.getJSON(ipsumURL, function(hipsterGoodness) {
                     if (hipsterGoodness.text.length) {
-                        localStorage.setItem('ipsum', encodeURIComponent($(hipsterGoodness.text).text())); //necessary to avoid ampersand issues
+                        sessionStorage.setItem('ipsum', encodeURIComponent($(hipsterGoodness.text).text())); //necessary to avoid ampersand issues
                         $('#ipsumModal').modal('hide');
                         $('#apiModal').modal(options);
-                        $('#analyze').removeClass('disabled');
+                        readyNextButton('#analyze','#analyze', getWatsonInfo);
                     }
                 });
                 break;
@@ -30,10 +39,10 @@ function getIpsum(event) {
           $.getJSON(ipsumURL, function(ponyGoodness) {
             console.log(ponyGoodness);
               if (ponyGoodness) {
-                  localStorage.setItem('ipsum', ponyGoodness.join(' '));
+                  sessionStorage.setItem('ipsum', ponyGoodness.join(' '));
                   $('#ipsumModal').modal('hide');
                   $('#apiModal').modal(options);
-                  $('#analyze').removeClass('disabled');
+                  readyNextButton('#analyze','#analyze', getWatsonInfo);
               }
           });
           break;
@@ -48,29 +57,29 @@ function getIpsum(event) {
                 dinoGoodness+='.';
                 captionSize=3;
                 console.log(dinoGoodness);
-                  localStorage.setItem('ipsum', dinoGoodness);
+                  sessionStorage.setItem('ipsum', dinoGoodness);
                   $('#ipsumModal').modal('hide');
                   $('#apiModal').modal(options);
-                  $('#analyze').removeClass('disabled');
+                  readyNextButton('#analyze','#analyze', getWatsonInfo);
               }
           });
           break;
         }
-        case 'Skater':
+        case 'Skater': //not currently working due to CORS issues
         {
-          ipsumURL='http://skateipsum.com/get/5/0/JSON/'; //has CORS issues for now
-          $.getJSON(ipsumURL, function(skaterGoodness) {
-            console.log(skaterGoodness);
-              if (skaterGoodness) {
-                skaterGoodness=skaterGoodness.map(function(array) {return array.map(function(element) {return element;}).join(' ');}).join('. ');
-                skaterGoodness+='.';
-                console.log(skaterGoodness);
-                  localStorage.setItem('ipsum', skaterGoodness);
-                  $('#ipsumModal').modal('hide');
-                  $('#apiModal').modal(options);
-                  $('#analyze').removeClass('disabled');
-              }
-          });
+        //   ipsumURL='http://skateipsum.com/get/5/0/JSON/'; //has CORS issues for now
+        //   $.getJSON(ipsumURL, function(skaterGoodness) {
+        //     console.log(skaterGoodness);
+        //       if (skaterGoodness) {
+        //         skaterGoodness=skaterGoodness.map(function(array) {return array.map(function(element) {return element;}).join(' ');}).join('. ');
+        //         skaterGoodness+='.';
+        //         console.log(skaterGoodness);
+        //           sessionStorage.setItem('ipsum', skaterGoodness);
+        //           $('#ipsumModal').modal('hide');
+        //           $('#apiModal').modal(options);
+        //           readyNextButton('#analyze','#analyze', getWatsonInfo);
+        //       }
+        //   });
           break;
         }
         case 'Pig':
@@ -80,20 +89,20 @@ function getIpsum(event) {
             console.log(baconGoodness);
             baconGoodness=baconGoodness.join('');
               if (baconGoodness) {
-                  localStorage.setItem('ipsum', baconGoodness);
+                  sessionStorage.setItem('ipsum', baconGoodness);
                   $('#ipsumModal').modal('hide');
                   $('#apiModal').modal(options);
-                  $('#analyze').removeClass('disabled');
+                  readyNextButton('#analyze','#analyze', getWatsonInfo);
               }
           });
           break;
         }
         case 'Custom':
         {
-          localStorage.setItem('ipsum',encodeURIComponent(prompt('please enter your ipsum:')));
+          sessionStorage.setItem('ipsum',encodeURIComponent(prompt('please enter your ipsum:')));
           $('#ipsumModal').modal('hide');
           $('#apiModal').modal(options);
-          $('#analyze').removeClass('disabled');
+          readyNextButton('#analyze','#analyze', getWatsonInfo);
           break;
         }
         default:
@@ -102,6 +111,5 @@ function getIpsum(event) {
                 return;
             }
     }
-    $('#analyze').click(getWatsonInfo);
     return;
 }

@@ -1,13 +1,18 @@
 'use strict';
 
+var song;
+
 function resetPage() {
     responsiveVoice.cancel();
-    $('body #myCarousel').remove();
+    $('.container-fluid #myCarousel').remove();
+    $('.container-fluid #apiModal').remove();
+    $('.container-fluid #ipsumModal').remove();
     $('audio').remove();
     setupCarousel();
     $('#ipsumModal').modal('hide');
     $('#apiModal').modal('hide');
     setup();
+    return;
 }
 
 function nextSlide() {
@@ -15,49 +20,60 @@ function nextSlide() {
     return;
 }
 
-function previousSlide() {
+function previousSlide() { //we don't use this right now, but it seems like we might need it someday
     $('#myCarousel').carousel('prev');
     return;
 }
 
 function setupCarousel() {
     //create Carousel//
-    $('body').append('<div id="myCarousel" class="carousel slide" data-ride="carousel"><ol class="carousel-indicators"></ol><div class="carousel-inner" role="listbox"></div></div>');
+    $('.container-fluid').append('<div id="myCarousel" class="carousel slide"><ol class="carousel-indicators"></ol><div class="carousel-inner" role="listbox"></div></div>');
+    return;
+}
+
+function decorateCarousel() {
     //add left control//
     $('#myCarousel').append('<a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>');
     //add right control//
     $('#myCarousel').append('<a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>');
     //add Play/Pause button//
-    $('#myCarousel').append('<div id="carouselButtons"><button id="pausePlayButton" type="button" class="btn btn-default btn-xl"><span class="glyphicon glyphicon-pause"></span></button></div>');
+    $('#myCarousel').append('<div id="carouselPauseButton"><button id="pausePlayButton" type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-pause"></span></button></div>');
     $('#pausePlayButton').click(playPause);
     //add Reset button//
-    $('#carouselButtons').append('<button id="resetButton" type="button" class="btn btn-default btn-xl"><span class="glyphicon glyphicon-refresh"></span></button>');
-    $('#resetButton').click(resetPage);
-    return;
+    $('#myCarousel').append('<div id="carouselResetButton"><button id="resetButton" type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-remove"></span></button></div>');
+    $('#resetButton').click(function() {
+        let $button = $('#resetButton');
+        buttonLoadStart($button, 'glyphicon-remove');
+        setTimeout(resetPage, 500);
+        return;
+    });
 }
 
 function playPause() {
-    var pop = Popcorn('#audio');
     var $button = $('#pausePlayButton span');
     if ($button.hasClass('glyphicon-play')) {
         $button.removeClass('glyphicon-play');
         $button.addClass('glyphicon-pause');
-        pop.play();
+        $button.closest('button').removeClass('btn-success');
+        $button.closest('button').addClass('btn-danger');
         responsiveVoice.resume();
+        song.play();
         return;
     } else if ($button.hasClass('glyphicon-pause')) {
         $button.removeClass('glyphicon-pause');
         $button.addClass('glyphicon-play');
-        pop.pause();
+        $button.closest('button').removeClass('btn-danger');
+        $button.closest('button').addClass('btn-success');
         responsiveVoice.pause();
+        song.pause();
         return;
     }
 }
 
-function streamImages() {
+function setupImages() {
     var slideIndicator, slideWrapper, slideCaption, slideHead, slideText;
-    var images = JSON.parse(localStorage.getItem('images'));
-    var ipsum = JSON.parse(localStorage.getItem('splitIpsum'));
+    var images = JSON.parse(sessionStorage.getItem('images'));
+    // var ipsum = JSON.parse(sessionStorage.getItem('splitIpsum'));
     console.log('you have', images.length, 'images');
     for (let i = 0; i < images.length; i++) {
         //setup the slide itself//
@@ -65,7 +81,7 @@ function streamImages() {
         $('.carousel-indicators').append(slideIndicator);
 
         //grab ipsum caption//
-        slideHead = ipsum[i];
+        // slideHead = ipsum[i];
 
         slideText = '';
         // slideText = images[i].description; //too much info here
@@ -78,9 +94,9 @@ function streamImages() {
     $('.carousel-indicators :first-child').addClass('active');
     $('.carousel-inner :first-child').addClass('active');
     $('#myCarousel').carousel({
-      wrap: false,
-      pause: null,
-      interval: 0
+        wrap: true, //on the off chance we reach the end too soon, keep going
+        pause: null, //don't let focus change the status of the slideshow
+        interval: 0 //don't move slides unless forced to
     });
     $('#myCarousel').on('slid.bs.carousel', function() {
         responsiveVoice.speak($('#myCarousel').find('.active .carousel-caption h1').text());
@@ -88,14 +104,43 @@ function streamImages() {
     return;
 }
 
-function streamMusic() {
-    var music = JSON.parse(localStorage.getItem('music'));
-    $('body').append('<audio id="audio"></audio>');
+function setupMusic() {
+    var music = JSON.parse(sessionStorage.getItem('music'));
+    $('.container-fluid').append('<div class="col-md-12"><audio id="audio"></audio></div>');
+    //choose a random song
     let index = Math.floor((Math.random() * music.length));
     console.log(index);
     let toStream = music[index];
     $('audio').append('<span>' + toStream.description + '</span>');
-    $('audio').append('<source src="' + toStream.assets.preview_ogg.url + '" type="audio/ogg"><source src="' + toStream.assets.preview_mp3.url + '" type="audio/mpeg">');
+    $('audio').append('<source src="' + toStream.assets.preview_mp3.url + '" type="audio/mpeg"><source src="' + toStream.assets.preview_ogg.url + '" type="audio/ogg">');
+    song = Popcorn('#audio');
+    return;
+}
+
+function setupText() {
+  var textStream=sessionStorage.getItem('ipsum');
+  console.log(textStream);
+}
+
+function beginSlideShow() {
+    console.log('song:', song);
+    let songLength = song.duration();
+    song.volume(1 / 2);
+
+    for (let i = timer; i < (song.duration() - timer); i += timer) {
+        song.cue(i, nextSlide);
+    }
+    //when the song is over, stop reading slides
+    song.cue(songLength, function() {
+        $('#pausePlayButton span').removeClass('glyphicon-pause');
+        $('#pausePlayButton span').addClass('glyphicon-play');
+        $('#pausePlayButton span').removeClass('btn-danger');
+        $('#pausePlayButton span').addClass('btn-success');
+        responsiveVoice.cancel();
+    });
+
+    decorateCarousel();
+    song.play();
     return;
 }
 
