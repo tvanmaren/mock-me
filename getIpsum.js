@@ -102,7 +102,7 @@ function getIpsum(event) {
           });
           break;
         }
-        case 'Customizer':
+        case 'Customizer...':
         {
           let ipsumText=prompt('please enter your ipsum:');
           if (!ipsumText) {

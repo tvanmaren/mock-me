@@ -32,6 +32,8 @@ function setupCarousel() {
 }
 
 function decorateCarousel() {
+    //remove background//
+    $('.init').remove();
     //add left control//
     $('#myCarousel').append('<a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>');
     //add right control//
@@ -39,14 +41,6 @@ function decorateCarousel() {
     //add Play/Pause button//
     $('#myCarousel').append('<div id="carouselPauseButton"><button id="pausePlayButton" type="button" class="btn btn-warning btn-lg control"><span class="glyphicon glyphicon-pause"></span></button></div>');
     $('#pausePlayButton').click(playPause);
-    //add Reset button//
-    $('#myCarousel').append('<div id="carouselResetButton"><button id="resetButton" type="button" class="btn btn-primary btn-lg control"><span class="glyphicon glyphicon-remove"></span></button></div>');
-    $('#resetButton').click(function() {
-        let $button = $('#resetButton');
-        buttonLoadStart($button, 'glyphicon-remove');
-        setTimeout(resetPage, 500);
-        return;
-    });
 }
 
 function playPause() {
@@ -87,7 +81,7 @@ function setupImages() {
         // slideText = images[i].description; //too much info here
 
         //setup the display image & text//
-        slideCaption = '<div class="carousel-caption"><h1 class="text-warning">' + slideHead + '</h1><p>' + slideText + '</p></div>';
+        slideCaption = '<div class="carousel-caption"><b><h1 class="text-warning">' + slideHead + '</h1></b><p>' + slideText + '</p></div>';
         slideWrapper = '<div class="item"><img class=img-responsive src=' + images[i].assets.preview.url + ' alt=' + images[i].image_type + '>' + slideCaption + '</div>';
         $('.carousel-inner').append(slideWrapper);
     }
@@ -101,35 +95,42 @@ function setupImages() {
     $('#myCarousel').on('slid.bs.carousel', function() {
         responsiveVoice.speak($('#myCarousel').find('.active .carousel-caption h1').text());
     });
+    //add Reset button//
+    $('#myCarousel').append('<div id="carouselResetButton"><button id="resetButton" type="button" class="btn btn-primary btn-lg control"><span class="glyphicon glyphicon-remove"></span></button></div>');
+    $('#resetButton').click(function() {
+        let $button = $('#resetButton');
+        buttonLoadStart($button, 'glyphicon-remove');
+        setTimeout(resetPage, 500);
+        return;
+    });
     return;
 }
 
 function chooseSong() {
-  var musicDB = JSON.parse(sessionStorage.getItem('music'));
-  let index = Math.floor((Math.random() * musicDB.length));
-  console.log('choosing song at index:',index);
-  console.log(musicDB[index].description);
-  if (musicDB[index].assets.preview_mp3.url) {
-    return musicDB[index];
-  } else {
-    return chooseSong(musicDB);
-  }
+    var musicDB = JSON.parse(sessionStorage.getItem('music'));
+    let index = Math.floor((Math.random() * musicDB.length));
+    console.log('choosing song at index:', index);
+    console.log(musicDB[index].description);
+    if (musicDB[index].assets.preview_mp3.url) {
+        return musicDB[index];
+    } else {
+        return chooseSong(musicDB);
+    }
 }
 
 function setupMusic() {
     $('.container-fluid').append('<div class="col-md-12"><audio id="audio"></audio></div>');
     //choose a random song
-    let toStream=chooseSong();
+    let toStream = chooseSong();
     $('audio').append('<span>' + toStream.description + '</span>');
-    $('audio').append('<source src="' + toStream.assets.preview_mp3.url + '" type="audio/mpeg">'
-  );
+    $('audio').append('<source src="' + toStream.assets.preview_mp3.url + '" type="audio/mpeg">');
     song = Popcorn('#audio');
     return;
 }
 
 function setupText() {
-  var textStream=sessionStorage.getItem('ipsum');
-  console.log(textStream);
+    var textStream = sessionStorage.getItem('ipsum');
+    console.log(textStream);
 }
 
 function beginSlideShow() {

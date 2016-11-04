@@ -46,6 +46,7 @@ audio {
 }
 
 #carouselResetButton {
+    z-index: 9999;
     position: fixed;
     left: 25px;
     top: 25px;
@@ -70,6 +71,10 @@ audio {
 
 .white-background {
   background-color: #ffffff;
+}
+
+.background {
+  font-size: 20em;
 }
 
 .process {
