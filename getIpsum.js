@@ -67,6 +67,7 @@ function getIpsum(event) {
         }
         case 'Skater': //not currently working due to CORS issues
         {
+          console.log('Sorry--Skater not available due to CORS issues');
         //   ipsumURL='http://skateipsum.com/get/5/0/JSON/'; //has CORS issues for now
         //   $.getJSON(ipsumURL, function(skaterGoodness) {
         //     console.log(skaterGoodness);
@@ -99,7 +100,12 @@ function getIpsum(event) {
         }
         case 'Customizer':
         {
-          sessionStorage.setItem('ipsum',encodeURIComponent(prompt('please enter your ipsum:')));
+          let ipsumText=prompt('please enter your ipsum:');
+          if (!ipsumText) {
+            alert('please choose valid data');
+            break;
+          }
+          sessionStorage.setItem('ipsum',encodeURIComponent());
           $('#ipsumModal').modal('hide');
           $('#apiModal').modal(options);
           readyNextButton('#analyze','#analyze', getWatsonInfo);

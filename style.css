@@ -19,6 +19,10 @@ p {
     font-size: 0.875em;
 }
 
+audio {
+   display:none;
+}
+
 .img-responsive,
 .thumbnail > img,
 .thumbnail a > img,
@@ -35,19 +39,6 @@ p {
    top: 150px;
 }
 
-audio {
-   display:none;
-}
-
-.glyphicon {
-  font-size: 2.5em;
-}
-
-.glyphicon-arrow-right {
-  margin-top: 125px;
-  /*yes, I know this is an awful hack. I'm presenting in less than 12 hours*/
-}
-
 #carouselPauseButton {
     position: fixed;
     right: 25px;
@@ -60,10 +51,30 @@ audio {
     top: 25px;
 }
 
+.glyphicon {
+  font-size: 2.5em;
+}
+
+.btn-lg {
+  min-width: 150px;
+  min-height: 50px;
+}
+
 .white-background {
   background-color: #ffffff;
 }
 
+.process {
+  min-width: 155px;
+  min-height: 155px;
+}
+
+.control {
+  min-width: 100px;
+  min-height: 100px;
+}
+
+/*Glyphicon Animation*/
 .fa-spin-custom, .glyphicon-spin {
   -webkit-animation: spin 1000ms infinite linear;
   animation: spin 1000ms infinite linear;

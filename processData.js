@@ -1,11 +1,11 @@
 "use strict";
 
-function processData(data, source) {
+function processData(data, source, category) {
     switch (source) {
         case 'tones':
             {
                 console.log('toneAnalysis', data);
-                console.log('toneLength',data.length);
+                console.log('toneLength', data.length);
                 try {
                     if (data.sentences_tone.length) {
                         sessionStorage.setItem('sentenceTones', JSON.stringify(data.sentences_tone));
@@ -25,9 +25,10 @@ function processData(data, source) {
         case 'images':
             {
                 console.log('imageData', data);
-                console.log('imageLength',data.length);
+                console.log('imageLength', data.length);
                 try {
                     if (data.data.length) {
+                        localStorage.setItem(('images-' + category), JSON.stringify(data.data)); //long-term, to reduce ajax calls
                         sessionStorage.setItem('images', JSON.stringify(data.data));
                         setupImages();
                         readyNextButton('#images', '#music', getShutterStockMusic);
@@ -37,17 +38,18 @@ function processData(data, source) {
                         return;
                     }
                 } catch (err) {
-                  console.log('Shutterstock doesn\'t understand you!\nPlease refresh and try again.\nERROR:', err);
-                  return;
+                    console.log('Shutterstock doesn\'t understand you!\nPlease refresh and try again.\nERROR:', err);
+                    return;
                 }
                 break;
             }
         case 'music':
             {
                 console.log('musicData', data);
-                console.log('musicLength',data.length);
+                console.log('musicLength', data.length);
                 try {
                     if (data.data.length) {
+                        localStorage.setItem(('music-' + category), JSON.stringify(data.data));
                         sessionStorage.setItem('music', JSON.stringify(data.data));
                         setupMusic();
                         readyNextButton('#music', '#video', getShutterStockVideo);
@@ -65,9 +67,10 @@ function processData(data, source) {
         case 'video':
             {
                 console.log('videoData', data);
-                console.log('videoLength',data.length);
+                console.log('videoLength', data.length);
                 try {
                     if (data.data.length) {
+                        localStorage.setItem(('video-' + category), JSON.stringify(data.data));
                         sessionStorage.setItem('video', JSON.stringify(data.data));
                         readyNextButton('#video', '#video', getShutterStockVideo);
                         return;
@@ -76,8 +79,8 @@ function processData(data, source) {
                         return;
                     }
                 } catch (err) {
-                  console.log('Shutterstock doesn\'t understand you!\nPlease refresh and try again.\nERROR:', err);
-                  return;
+                    console.log('Shutterstock doesn\'t understand you!\nPlease refresh and try again.\nERROR:', err);
+                    return;
                 }
                 break;
             }

@@ -37,10 +37,10 @@ function decorateCarousel() {
     //add right control//
     $('#myCarousel').append('<a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>');
     //add Play/Pause button//
-    $('#myCarousel').append('<div id="carouselPauseButton"><button id="pausePlayButton" type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-pause"></span></button></div>');
+    $('#myCarousel').append('<div id="carouselPauseButton"><button id="pausePlayButton" type="button" class="btn btn-warning btn-lg control"><span class="glyphicon glyphicon-pause"></span></button></div>');
     $('#pausePlayButton').click(playPause);
     //add Reset button//
-    $('#myCarousel').append('<div id="carouselResetButton"><button id="resetButton" type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-remove"></span></button></div>');
+    $('#myCarousel').append('<div id="carouselResetButton"><button id="resetButton" type="button" class="btn btn-primary btn-lg control"><span class="glyphicon glyphicon-remove"></span></button></div>');
     $('#resetButton').click(function() {
         let $button = $('#resetButton');
         buttonLoadStart($button, 'glyphicon-remove');
@@ -104,15 +104,25 @@ function setupImages() {
     return;
 }
 
+function chooseSong() {
+  var musicDB = JSON.parse(sessionStorage.getItem('music'));
+  let index = Math.floor((Math.random() * musicDB.length));
+  console.log('choosing song at index:',index);
+  console.log(musicDB[index].description);
+  if (musicDB[index].assets.preview_mp3.url) {
+    return musicDB[index];
+  } else {
+    return chooseSong(musicDB);
+  }
+}
+
 function setupMusic() {
-    var music = JSON.parse(sessionStorage.getItem('music'));
     $('.container-fluid').append('<div class="col-md-12"><audio id="audio"></audio></div>');
     //choose a random song
-    let index = Math.floor((Math.random() * music.length));
-    console.log(index);
-    let toStream = music[index];
+    let toStream=chooseSong();
     $('audio').append('<span>' + toStream.description + '</span>');
-    $('audio').append('<source src="' + toStream.assets.preview_mp3.url + '" type="audio/mpeg"><source src="' + toStream.assets.preview_ogg.url + '" type="audio/ogg">');
+    $('audio').append('<source src="' + toStream.assets.preview_mp3.url + '" type="audio/mpeg">'
+  );
     song = Popcorn('#audio');
     return;
 }
