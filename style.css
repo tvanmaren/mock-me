@@ -4,6 +4,7 @@ h1 {
 
 h2 {
     font-size: 1.875em;
+    text-align: center;
 }
 
 h3 {
@@ -40,7 +41,11 @@ audio {
 
 .glyphicon {
   font-size: 2.5em;
-  margin: auto;
+}
+
+.glyphicon-arrow-right {
+  margin-top: 125px;
+  /*yes, I know this is an awful hack. I'm presenting in less than 12 hours*/
 }
 
 #carouselPauseButton {
@@ -55,7 +60,6 @@ audio {
     top: 25px;
 }
 
-
 .white-background {
   background-color: #ffffff;
 }
@@ -64,6 +68,7 @@ audio {
   -webkit-animation: spin 1000ms infinite linear;
   animation: spin 1000ms infinite linear;
 }
+
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -74,6 +79,7 @@ audio {
     transform: rotate(359deg);
   }
 }
+
 @keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);

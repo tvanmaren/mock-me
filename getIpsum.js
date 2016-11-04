@@ -97,7 +97,7 @@ function getIpsum(event) {
           });
           break;
         }
-        case 'Custom':
+        case 'Customizer':
         {
           sessionStorage.setItem('ipsum',encodeURIComponent(prompt('please enter your ipsum:')));
           $('#ipsumModal').modal('hide');

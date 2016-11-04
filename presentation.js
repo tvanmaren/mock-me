@@ -73,7 +73,7 @@ function playPause() {
 function setupImages() {
     var slideIndicator, slideWrapper, slideCaption, slideHead, slideText;
     var images = JSON.parse(sessionStorage.getItem('images'));
-    // var ipsum = JSON.parse(sessionStorage.getItem('splitIpsum'));
+    var ipsum = [''].concat(JSON.parse(sessionStorage.getItem('splitIpsum')));
     console.log('you have', images.length, 'images');
     for (let i = 0; i < images.length; i++) {
         //setup the slide itself//
@@ -81,13 +81,13 @@ function setupImages() {
         $('.carousel-indicators').append(slideIndicator);
 
         //grab ipsum caption//
-        // slideHead = ipsum[i];
+        slideHead = ipsum[i];
 
         slideText = '';
         // slideText = images[i].description; //too much info here
 
         //setup the display image & text//
-        slideCaption = '<div class="carousel-caption"><h1>' + slideHead + '</h1><p>' + slideText + '</p></div>';
+        slideCaption = '<div class="carousel-caption"><h1 class="text-warning">' + slideHead + '</h1><p>' + slideText + '</p></div>';
         slideWrapper = '<div class="item"><img class=img-responsive src=' + images[i].assets.preview.url + ' alt=' + images[i].image_type + '>' + slideCaption + '</div>';
         $('.carousel-inner').append(slideWrapper);
     }
@@ -125,7 +125,7 @@ function setupText() {
 function beginSlideShow() {
     console.log('song:', song);
     let songLength = song.duration();
-    song.volume(1 / 2);
+    song.volume(1 / 4);
 
     for (let i = timer; i < (song.duration() - timer); i += timer) {
         song.cue(i, nextSlide);
