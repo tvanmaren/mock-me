@@ -60,13 +60,21 @@ audio {
   min-height: 50px;
 }
 
+.btn-xs {
+  position: fixed;
+  right: 5px;
+  top: 5px;
+  min-width: 50px;
+  min-height: 50px;
+}
+
 .white-background {
   background-color: #ffffff;
 }
 
 .process {
-  min-width: 155px;
-  min-height: 155px;
+  min-width: 175px;
+  min-height: 175px;
 }
 
 .control {

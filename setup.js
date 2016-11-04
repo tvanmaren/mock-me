@@ -26,6 +26,17 @@ function buttonLoadStop($button, text) {
     return;
 }
 
+function clearIpsum() {
+  $('#reset').html('<span class="glyphicon glyphicon-refresh glyphicon-spin"></span>');
+  console.log('clearing localStorage');
+  localStorage.clear();
+  console.log('localStorage cleared');
+  setTimeout(function () { 
+  $('#reset').html('<small class="text-center"><div>clear</div><div>local</div><div>storage</div></small>');
+  return;}, 500);
+  return;
+}
+
 function getWatsonInfo() {
     var $button = $('#analyze');
     //check if button is disabled or not
@@ -154,7 +165,7 @@ function getShutterStockVideo() {
 }
 
 function insertIpsumModal() {
-    $('.container-fluid').append('<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" id="ipsumModal"><div class="modal-dialog modal-md" role="document"><div class="modal-content"><h2 class="modal-title text-center">Today, I feel like a...</h2><div class="modal-body"><div class="text-center center-block"><div class="row"><div class="btn-group btn-group-vertical"><button id="hipster" class="btn btn-info btn-lg">Hipster</button><button id="pony" class="btn btn-info btn-lg">Pony</button><button id="dino" class="btn btn-info btn-lg">Dino</button></div><div class="btn-group btn-group-vertical"><button class="btn btn-link btn-block"></button><button class="btn btn-link"></button><button class="btn btn-link"></button></div><div class="btn-group btn-group-vertical"><button id="bacon" class="btn btn-info btn-lg">Pig</button><button id="skater" class="btn btn-danger btn-lg disabled">Skater</button><button id="custom" class="btn btn-lg btn-block white-background text-warning" autocomplete="off">Customizer</button></div></div></div></div></div></div></div>');
+    $('.container-fluid').append('<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" id="ipsumModal"><div class="modal-dialog modal-md" role="document"><div class="modal-content"><h2 class="modal-title text-center">Today, I feel like a...</h2><div class="modal-body"><div class="text-center center-block"><div class="row"><div class="btn-group btn-group-vertical"><button id="hipster" class="btn btn-info btn-lg">Hipster</button><button id="pony" class="btn btn-info btn-lg">Pony</button><button id="dino" class="btn btn-info btn-lg">Dino</button></div><div class="btn-group btn-group-vertical"><button class="btn btn-link btn-block"></button><button class="btn btn-link"></button><button class="btn btn-link"></button></div><div class="btn-group btn-group-vertical"><button id="bacon" class="btn btn-info btn-lg">Pig</button><button id="skater" class="btn btn-danger btn-lg disabled">Skater</button><button id="custom" class="btn btn-lg btn-block white-background text-warning" autocomplete="off">Customizer</button></div></div></div><div class="row text-right"><button id="reset" class="btn btn-warning btn-xs"><small class="text-center"><div>clear</div><div>local></div>storage</div></small></button></div></div></div></div></div>');
     return;
 }
 
@@ -171,6 +182,7 @@ function setup() {
     insertAPIModal();
     $('#ipsumModal').modal(options); //displaying the ipsum modal
     $('#ipsumModal').click(getIpsum); //listening for all ipsum buttons
+    $('#reset').click(clearIpsum);
     return;
 }
 

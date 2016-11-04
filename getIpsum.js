@@ -17,6 +17,10 @@ function readyNextButton(sourceID, destinationID, destinationClickFunction) {
 }
 
 function getIpsum(event) {
+  //redirect for reset//
+  if ($(this).text()==='reset') {
+    console.log('resetting');
+  }
     var ipsum = $(event.target).text();
     console.log('ipsum is',ipsum);
     switch (ipsum) {
