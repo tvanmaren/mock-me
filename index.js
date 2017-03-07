@@ -3,9 +3,9 @@
 require('dotenv').config();
 
 var express = require('express');
-var WATSON_URL = process.env.WATSON_URL;
-var WATSON_PWD = process.env.WATSON_PASSWORD;
-var WATSON_USR = process.env.WATSON_USERNAME;
+var WATSON_URL = "https://gateway.watsonplatform.net/tone-analyzer/api";
+var WATSON_PWD = "bQ4ws7wCgfFC";
+var WATSON_USR = "34d65e1a-374f-4ca4-8a99-1f535a9c33e4";
 
 var app = express();
 
