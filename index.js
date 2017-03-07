@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 
+const btoa=require('btoa');
 const express = require('express');
 const axios = require('axios');
 const WATSON_URL = "https://gateway.watsonplatform.net/tone-analyzer/api";
