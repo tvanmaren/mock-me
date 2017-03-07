@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-// const b64=require('btoa');
+const b64=require('btoa');
 const express = require('express');
 const axios = require('axios');
 const querystring = require('querystring');
@@ -12,14 +12,15 @@ const WATSON_USERNAME = process.env.WATSON_USERNAME;
 const WATSON_PASSWORD = process.env.WATSON_PASSWORD;
 const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
 const SHUTTERSTOCK_SECRET = process.env.SHUTTERSTOCK_SECRET;
-// const Authorization=`Basic ${b64(`${SHUTTERSTOCK_ID}:${SHUTTERSTOCK_SECRET}`)}`;
-// const SHUTTERSTOCK_HEADERS={headers: { Authorization }};
-const access_token = process.env.SHUTTERSTOCK_TOKEN;
-const SHUTTERSTOCK_HEADERS = {
-  headers: {
-    "Authorization": "Bearer: " + access_token
-  }
-};
+const Authorization=`Basic ${b64(SHUTTERSTOCK_ID+':'+SHUTTERSTOCK_SECRET)}`;
+console.log(Authorization);
+const SHUTTERSTOCK_HEADERS={headers: { Authorization }};
+// const access_token = process.env.SHUTTERSTOCK_TOKEN;
+// const SHUTTERSTOCK_HEADERS = {
+//   headers: {
+//     "Authorization": "Bearer: " + access_token
+//   }
+// };
 
 var app = express();
 
@@ -85,8 +86,8 @@ app.get('/images/', function (req, res) {
   const getPage = req.query.getPage;
   const category = req.query.category;
 
-  axios.defaults.headers.common['Authorization'] = ('Bearer: '+access_token);
-  const imageURL = `${SHUTTERSTOCK_ID}:${SHUTTERSTOCK_SECRET}@https://api.shutterstock.com/v2/images/search`;
+  axios.defaults.headers.common['Authorization'] = (Authorization);
+  const imageURL = `https://api.shutterstock.com/v2/images/search`;
   axios.get(imageURL, querystring.stringify({
       'image_type': 'photo',
       'license': 'commercial',
