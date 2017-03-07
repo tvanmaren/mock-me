@@ -75,7 +75,7 @@ app.get('/images/', function(req,res){
   const category = req.query.category;
 
   const imageURL = `token@https://api.shutterstock.com/v2/images/search?image_type=photo&license=commercial&page=${getPage}&orientation=horizontal&sort=random&view=full&query=${category}&token=${access_token}`;
-  axios.get(imageURL)
+  axios.get(imageURL, SHUTTERSTOCK_HEADERS)
     .then((data) => {
       console.log('images:',data);
       res.json(data);
