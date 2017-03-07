@@ -86,7 +86,7 @@ app.get('/images/', function (req, res) {
   const getPage = req.query.getPage;
   const category = req.query.category;
 
-  axios.defaults.headers['Authorization'] = ('Bearer: '+access_token);
+  axios.defaults.headers['Token'] = ('Bearer: '+access_token);
   console.log(axios.defaults.headers);
   const imageURL = 'https://api.shutterstock.com/v2/images/search';
   axios.get(imageURL, querystring.stringify({
