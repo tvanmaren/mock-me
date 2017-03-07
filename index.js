@@ -12,8 +12,8 @@ var app = express();
 var watson = require('watson-developer-cloud');
 
 var tone_analyzer = watson.tone_analyzer({
-  username: {WATSON_USR},
-  password: {WATSON_PWD},
+  username: {username: WATSON_USR},
+  password: {password: WATSON_PWD},
   version: 'v3',
   version_date: '2016-05-19'
 });
