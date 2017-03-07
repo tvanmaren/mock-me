@@ -1,4 +1,4 @@
-For a working, deployed version of project mockMe, go to http://mock-me.surge.sh/
+For a working, server-deployed version of project mockMe, go to http://mock-me.herokuapp.com/
 
 The purpose of project mockMe is to allow the user to create a mock-up presentation from silly ipsum data, stock photographs, and stock music. Ipsum data will be sent to IBM watson for personality analysis, and that personality analysis will be used to determine the appropriate images and accompanying music. The finished product will be an uncannily fitting combination of meaningless text, photography, and music.
 
