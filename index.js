@@ -4,7 +4,7 @@ require('dotenv').config();
 
 var express = require('express');
 var request = require('request');
-var apiServerHost = process.env.API_SERVER_HOST;
+var WATSON_URL = process.env.WATSON_URL;
 
 var app = express();
 
