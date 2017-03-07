@@ -25,6 +25,8 @@ var tone_analyzer = watson.tone_analyzer({
   version_date: '2016-05-19'
 });
 
+app.use(express.static('./public'));
+
 app.use(function(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");    res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS");

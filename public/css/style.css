@@ -1,0 +1,116 @@
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 1.875em;
+    text-align: center;
+}
+
+h3 {
+  font-size: 1.25em;
+}
+
+h4 {
+  font-size: 1em;
+}
+
+p {
+    font-size: 0.875em;
+}
+
+audio {
+   display:none;
+}
+
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  width: 75%;
+  height: auto;
+  margin: auto;
+}
+
+.carousel-caption {
+   position: fixed;
+   top: 150px;
+}
+
+#carouselPauseButton {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+}
+
+#carouselResetButton {
+    z-index: 9999;
+    position: fixed;
+    left: 25px;
+    top: 25px;
+}
+
+.glyphicon {
+  font-size: 2.5em;
+}
+
+.btn-lg {
+  min-width: 150px;
+  min-height: 50px;
+}
+
+.btn-xs {
+  position: fixed;
+  right: 5px;
+  top: 5px;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.white-background {
+  background-color: #ffffff;
+}
+
+.background {
+  font-size: 20em;
+}
+
+.process {
+  min-width: 175px;
+  min-height: 175px;
+}
+
+.control {
+  min-width: 100px;
+  min-height: 100px;
+}
+
+/*Glyphicon Animation*/
+.fa-spin-custom, .glyphicon-spin {
+  -webkit-animation: spin 1000ms infinite linear;
+  animation: spin 1000ms infinite linear;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
