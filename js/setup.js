@@ -5,7 +5,7 @@ var getPage = 1; //only necessary if we're grabbing more than 20 photos
 
 const timer = 5; //move the slides along every five seconds
 
-const watsonURL = "https://g-watson-tristan.herokuapp.com/?text=";
+const watsonURL = "https://watson-tristan.herokuapp.com/?text=";
 
 const imageURL = "https://clientID:clientSecret@api.shutterstock.com/v2/images/search?image_type=photo&license=commercial&page=" + getPage + "&orientation=horizontal&sort=random&view=full&query=";
 
