@@ -95,7 +95,8 @@ app.get('/images/', function (req, res) {
       'sort': 'random',
       'view': 'full',
       'page': getPage,
-      'query': category
+      'query': category,
+      'access_token': access_token
     }))
     .then((result) => {
       console.log('images:', result.data);
