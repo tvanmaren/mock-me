@@ -10,15 +10,14 @@ const axios = require('axios');
 const querystring = require('querystring');
 const WATSON_USERNAME = process.env.WATSON_USERNAME;
 const WATSON_PASSWORD = process.env.WATSON_PASSWORD;
-// const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
-// const SHUTTERSTOCK_SECRET = process.env.SHUTTERSTOCK_SECRET;
+const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
+const SHUTTERSTOCK_SECRET = process.env.SHUTTERSTOCK_SECRET;
 // const Authorization=`Basic ${b64(`${SHUTTERSTOCK_ID}:${SHUTTERSTOCK_SECRET}`)}`;
 // const SHUTTERSTOCK_HEADERS={headers: { Authorization }};
 const access_token = process.env.SHUTTERSTOCK_TOKEN;
 const SHUTTERSTOCK_HEADERS = {
   headers: {
-    "Authorization": "Bearer: " + access_token,
-    "User-Agent": null
+    "Authorization": "Bearer: " + access_token
   }
 };
 
@@ -86,8 +85,8 @@ app.get('/images/', function (req, res) {
   const getPage = req.query.getPage;
   const category = req.query.category;
 
-  axios.defaults.headers['Auth'] = ('Bearer: '+access_token);
-  const imageURL = 'https://api.shutterstock.com/v2/images/search';
+  axios.defaults.headers.common['Authorization'] = ('Bearer: '+access_token);
+  const imageURL = `${SHUTTERSTOCK_ID}:${SHUTTERSTOCK_SECRET}@https://api.shutterstock.com/v2/images/search`;
   axios.get(imageURL, querystring.stringify({
       'image_type': 'photo',
       'license': 'commercial',
@@ -95,8 +94,7 @@ app.get('/images/', function (req, res) {
       'sort': 'random',
       'view': 'full',
       'page': getPage,
-      'query': category,
-      'access_token': access_token
+      'query': category
     }))
     .then((result) => {
       console.log('images:', result.data);
