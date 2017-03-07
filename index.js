@@ -17,6 +17,7 @@ var tone_analyzer = watson.tone_analyzer({
   version: 'v3',
   version_date: '2016-05-19'
 });
+console.log(tone_analyzer);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
