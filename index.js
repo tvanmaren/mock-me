@@ -3,16 +3,17 @@
 require('dotenv').config();
 
 var express = require('express');
-var request = require('request');
 var WATSON_URL = process.env.WATSON_URL;
+var WATSON_PWD = process.env.WATSON_PASSWORD;
+var WATSON_USR = process.env.WATSON_USERNAME;
 
 var app = express();
 
 var watson = require('watson-developer-cloud');
 
 var tone_analyzer = watson.tone_analyzer({
-  "password": process.env.WATSON_PASSWORD,
-  "username": process.env.WATSON_USERNAME,
+  username: {WATSON_USR},
+  password: {WATSON_PWD},
   version: 'v3',
   version_date: '2016-05-19'
 });
