@@ -44,7 +44,7 @@ app.get('/ipsum/:type', function(req,res){
     pig: 'https://baconipsum.com/api/?type=just-meat'
   };
 
-  axios.get(ipsumDict[type])
+  axios.get(ipsumDict[type], {responseType: 'json'})
     .then((data) => {
       res.send(data);
     })
