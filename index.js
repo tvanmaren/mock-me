@@ -13,6 +13,8 @@ const SHUTTERSTOCK_HEADERS={headers: {
         "Authorization": "Basic " + b64(`${SHUTTERSTOCK_ID}:${SHUTTERSTOCK_SECRET}`)
         }};
 
+console.log(WATSON_USR, WATSON_PWD, SHUTTERSTOCK_ID, SHUTTERSTOCK_SECRET, SHUTTERSTOCK_HEADERS);
+
 var app = express();
 
 var watson = require('watson-developer-cloud');
