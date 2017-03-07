@@ -4,9 +4,9 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-const b64=require('btoa');
+// const b64=require('btoa');
 const express = require('express');
-const request = require('request-promise');
+const fetch = require('node-fetch');
 const WATSON_USERNAME = process.env.WATSON_USERNAME;
 const WATSON_PASSWORD = process.env.WATSON_PASSWORD;
 // const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
@@ -47,7 +47,7 @@ app.get('/ipsum/:type', function(req,res){
     pig: 'https://baconipsum.com/api/?type=just-meat'
   };
 
-  request.get({"uri": ipsumDict[type], headers: {"responseType": "json"}})
+  fetch(ipsumDict[type], {headers: {"responseType": "json"}})
     .then((response) => {
       res.json(response.data);
     })
@@ -75,7 +75,7 @@ app.get('/images/', function(req,res){
   const category = req.query.category;
 
   const imageURL = `https://api.shutterstock.com/v2/images/search?image_type=photo&license=commercial&page=${getPage}&orientation=horizontal&sort=random&view=full&query=${category}`;
-  request.get(imageURL, SHUTTERSTOCK_HEADERS)
+  fetch(imageURL, SHUTTERSTOCK_HEADERS)
     .then((data) => {
       console.log('images:',data);
       res.json(data);
