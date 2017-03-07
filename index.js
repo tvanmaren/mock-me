@@ -49,7 +49,7 @@ app.get('/ipsum/:type', function(req,res){
 
   fetch(ipsumDict[type], {headers: {"responseType": "json"}})
     .then((response) => {
-      res.json(response.data);
+      res.json(response);
     })
     .catch((err) => {
       console.log(err);
