@@ -2,16 +2,17 @@
 
 require('dotenv').config();
 
-const btoa=require('btoa');
+const b64=require('btoa');
 const express = require('express');
 const axios = require('axios');
-const WATSON_URL = "https://gateway.watsonplatform.net/tone-analyzer/api";
-const WATSON_PWD = "bQ4ws7wCgfFC";
-const WATSON_USR = "34d65e1a-374f-4ca4-8a99-1f535a9c33e4";
-
-const musicURL = "https://clientID:clientSecret@api.shutterstock.com/v2/audio/search?query=";
-
-const videoURL = "https://clientID:clientSecret@api.shutterstock.com/v2/videos/search?query=";
+const WATSON_URL = process.env.WATSON_URL;
+const WATSON_PWD = process.env.WATSON_PWD;
+const WATSON_USR = process.env.WATSON_USR;
+const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
+const SHUTTERSTOCK_SECRET = process.env.SHUTTERSTOCK_SECRET;
+const SHUTTERSTOCK_HEADERS={headers: {
+        "Authorization": "Basic " + b64(`${SHUTTERSTOCK_ID}:${SHUTTERSTOCK_SECRET}`)
+        }};
 
 var app = express();
 
@@ -49,13 +50,8 @@ app.get('/images/', function(req,res){
   const getPage = req.query.getPage;
   const category = req.query.category;
 
-  const USERNAME = "4ec1e4604d0df001e322";
-  const PASSWORD = "e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c";
-  const config={headers: {
-          "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
-          }};
   const imageURL = `https://clientID:clientSecret@api.shutterstock.com/v2/images/search?image_type=photo&license=commercial&page=${getPage}&orientation=horizontal&sort=random&view=full&query=${category}`;
-  axios.get(imageURL, config)
+  axios.get(imageURL, SHUTTERSTOCK_HEADERS)
     .then((data) => {
       res.json(data);
     })
@@ -68,13 +64,8 @@ app.get('/audio/', function(req,res){
   console.log(req.query);
   const category = req.query.category;
 
-  const USERNAME = "4ec1e4604d0df001e322";
-  const PASSWORD = "e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c";
-  const config={headers: {
-          "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
-          }};
   const musicURL = `https://clientID:clientSecret@api.shutterstock.com/v2/audio/search?query=${category}`;
-  axios.get(musicURL, config)
+  axios.get(musicURL, SHUTTERSTOCK_HEADERS)
     .then((data) => {
       res.json(data);
     })
@@ -87,13 +78,8 @@ app.get('/videos/', function(req,res){
   console.log(req.query);
   const category = req.query.category;
 
-  const USERNAME = "4ec1e4604d0df001e322";
-  const PASSWORD = "e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c";
-  const config={headers: {
-          "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
-          }};
   const videoURL = `https://clientID:clientSecret@api.shutterstock.com/v2/videos/search?query=${category}`;
-  axios.get(videoURL, config)
+  axios.get(videoURL, SHUTTERSTOCK_HEADERS)
     .then((data) => {
       res.json(data);
     })
