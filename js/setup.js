@@ -7,11 +7,11 @@ const timer = 5; //move the slides along every five seconds
 
 const watsonURL = "https://watson-tristan.herokuapp.com/watson/?text=";
 
-const imageURL = "https://watson-tristan.herokuapp.com/images/?getPage=" + getPage + "&category=";
+const imageURL = "https://watson-tristan.herokuapp.com/images/";
 
-const musicURL = "https://watson-tristan.herokuapp.com/audio/?category=";
+const musicURL = "https://watson-tristan.herokuapp.com/audio/";
 
-const videoURL = "https://watson-tristan.herokuapp.com/video/?category=";
+const videoURL = "https://watson-tristan.herokuapp.com/video/";
 
 function buttonLoadStart($button, glyphiconName) {
     $button.find('span').addClass('glyphicon-spin');
@@ -107,7 +107,7 @@ function getShutterStockMusic() {
     console.log('grabbing', category, 'music');
     //PARSE Watson data for category here
     if (localStorage.getItem(('music-' + category)) === null) {
-        $.getJSON(musicURL + category, function(data) {
+        $.getJSON(`${musicURL}/?category=${category}`, function(data) {
             processData(data, 'music', category);
             buttonLoadStop($button, 'Pop!');
             return;
@@ -134,7 +134,7 @@ function getShutterStockVideo() {
     console.log('grabbing', category, 'videos');
     //PARSE Watson data for category here
     if (localStorage.getItem(('video-'+category))===null) {
-    $.getJSON(videoURL + category, function(data) {
+    $.getJSON(`${videoURL}/?category=${category}`, function(data) {
         processData(data, 'video', category);
         // $(window).on('load', function() {
         //add in a notification: loading slideshow
