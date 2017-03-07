@@ -70,14 +70,14 @@ function getShutterStockPhotos() {
     console.log(parseSentences());
     category = parseIpsum();
     console.log('grabbing', category, 'photos');
-    //PARSE Watson data for category here
-    var USERNAME = "4ec1e4604d0df001e322";
-    var PASSWORD = "e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c";
-    $.ajaxSetup({
-        headers: {
-            "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
-        }
-    });
+    // //PARSE Watson data for category here
+    // var USERNAME = "4ec1e4604d0df001e322";
+    // var PASSWORD = "e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c";
+    // $.ajaxSetup({
+    //     headers: {
+    //         "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
+    //     }
+    // });
     if (localStorage.getItem(('images-' + category)) === null) {
         $.getJSON(`${imageURL}/?getPage=${getPage}&category=${category}`, function(data) {
             processData(data, 'images', category);
