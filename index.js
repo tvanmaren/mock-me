@@ -22,11 +22,11 @@ var tone_analyzer = watson.tone_analyzer({
   version: 'v3',
   version_date: '2016-05-19'
 });
-console.log(tone_analyzer);
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.setHeader("Access-Control-Allow-Origin", "*");    res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
   next();
 });
 
@@ -45,11 +45,16 @@ app.get('/watson', function(req,res){
 });
 
 app.get('/images/', function(req,res){
-  console.log(req.query);
   const getPage = req.query.getPage;
   const category = req.query.category;
+
+  const USERNAME = "4ec1e4604d0df001e322";
+  const PASSWORD = "e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c";
+  const config={headers: {
+          "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
+          }};
   const imageURL = `https://clientID:clientSecret@api.shutterstock.com/v2/images/search?image_type=photo&license=commercial&page=${getPage}&orientation=horizontal&sort=random&view=full&query=${category}`;
-  axios.get(imageURL)
+  axios.get(imageURL, config)
     .then((data) => {
       res.json(data);
     })
@@ -61,8 +66,14 @@ app.get('/images/', function(req,res){
 app.get('/audio/', function(req,res){
   console.log(req.query);
   const category = req.query.category;
+
+  const USERNAME = "4ec1e4604d0df001e322";
+  const PASSWORD = "e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c";
+  const config={headers: {
+          "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
+          }};
   const musicURL = `https://clientID:clientSecret@api.shutterstock.com/v2/audio/search?query=${category}`;
-  axios.get(musicURL)
+  axios.get(musicURL, config)
     .then((data) => {
       res.json(data);
     })
@@ -74,8 +85,14 @@ app.get('/audio/', function(req,res){
 app.get('/videos/', function(req,res){
   console.log(req.query);
   const category = req.query.category;
+
+  const USERNAME = "4ec1e4604d0df001e322";
+  const PASSWORD = "e079a0cfeb1147c55ac1d6d1ecaf2561b60def1c";
+  const config={headers: {
+          "Authorization": "Basic " + btoa(USERNAME + ":" + PASSWORD)
+          }};
   const videoURL = `https://clientID:clientSecret@api.shutterstock.com/v2/videos/search?query=${category}`;
-  axios.get(videoURL)
+  axios.get(videoURL, config)
     .then((data) => {
       res.json(data);
     })
