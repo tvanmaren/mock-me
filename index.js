@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const b64=require('btoa');
 const express = require('express');
-const request = require('request-promise-native');
+const request = require('request-promise');
 const WATSON_USERNAME = process.env.WATSON_USERNAME;
 const WATSON_PASSWORD = process.env.WATSON_PASSWORD;
 // const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
