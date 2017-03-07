@@ -13,6 +13,7 @@
   "dependencies": {
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
+    "har-validator": "^4.2.1",
     "nodemon": "^1.11.0",
     "request": "^2.80.0",
     "watson-developer-cloud": "^2.25.1"
