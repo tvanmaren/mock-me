@@ -26,7 +26,7 @@ function getIpsum(event) {
     switch (ipsum) {
         case 'Hipster':
             {
-                ipsumURL = 'http://hipsterjesus.com/api/?type=hipster-centric';
+                ipsumURL = '/ipsum/hipster';
                 $.getJSON(ipsumURL, function(hipsterGoodness) {
                     if (hipsterGoodness.text.length) {
                         sessionStorage.setItem('ipsum', encodeURIComponent($(hipsterGoodness.text).text())); //necessary to avoid ampersand issues
@@ -39,7 +39,7 @@ function getIpsum(event) {
             }
         case 'Pony':
         {
-          ipsumURL='http://ponyipsum.com/api/?type=all-pony';
+          ipsumURL='/ipsum/pony';
           $.getJSON(ipsumURL, function(ponyGoodness) {
             console.log(ponyGoodness);
               if (ponyGoodness) {
@@ -53,7 +53,7 @@ function getIpsum(event) {
         }
         case 'Dino':
         {
-          ipsumURL='http://dinoipsum.herokuapp.com/api/?format=json&paragraphs=5';
+          ipsumURL='/ipsum/dino';
           $.getJSON(ipsumURL, function(dinoGoodness) {
             console.log(dinoGoodness);
               if (dinoGoodness) {
@@ -72,7 +72,7 @@ function getIpsum(event) {
         case 'Skater': //not currently working due to CORS issues
         {
           console.log('Sorry--Skater not available due to CORS issues');
-        //   ipsumURL='http://skateipsum.com/get/5/0/JSON/'; //has CORS issues for now
+        //   ipsumURL='/ipsum/skater'; //has CORS issues for now
         //   $.getJSON(ipsumURL, function(skaterGoodness) {
         //     console.log(skaterGoodness);
         //       if (skaterGoodness) {
@@ -89,7 +89,7 @@ function getIpsum(event) {
         }
         case 'Pig':
         {
-          ipsumURL='https://baconipsum.com/api/?type=just-meat';
+          ipsumURL='/ipsum/pig';
           $.getJSON(ipsumURL, function(baconGoodness) {
             console.log(baconGoodness);
             baconGoodness=baconGoodness.join('');

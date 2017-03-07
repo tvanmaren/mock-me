@@ -33,6 +33,26 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.get('/ipsum/:type', function(req,res){
+  const type = req.params.type;
+
+  const ipsumDict = {
+    hipster: 'http://hipsterjesus.com/api/?type=hipster-centric',
+    pony: 'http://ponyipsum.com/api/?type=all-pony',
+    dino: 'http://dinoipsum.herokuapp.com/api/?format=json&paragraphs=5',
+    skater: 'http://skateipsum.com/get/5/0/JSON/',
+    pig: 'https://baconipsum.com/api/?type=just-meat'
+  };
+
+  axios.get(ipsumDict[type])
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 app.get('/watson', function(req,res){
   console.log(req.query);
   console.log("tone analyzer");
