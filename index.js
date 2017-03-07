@@ -45,9 +45,9 @@ app.get('/ipsum/:type', function(req,res){
   };
 
   axios.get(ipsumDict[type], {headers: {"responseType": "json"}})
-    .then((data) => {
-      console.log(data);
-      res.json(JSON.parse(data));
+    .then((response) => {
+      console.log(response.data);
+      res.json(response.data);
     })
     .catch((err) => {
       console.log(err);

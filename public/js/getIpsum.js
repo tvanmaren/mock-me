@@ -27,7 +27,7 @@ function getIpsum(event) {
         case 'Hipster':
             {
                 ipsumURL = '/ipsum/hipster';
-                $.getJSON(ipsumURL, function(hipsterGoodness) {
+                $.get(ipsumURL, function(hipsterGoodness) {
                     if (hipsterGoodness.text.length) {
                         sessionStorage.setItem('ipsum', encodeURIComponent($(hipsterGoodness.text).text())); //necessary to avoid ampersand issues
                         $('#ipsumModal').modal('hide');
@@ -40,7 +40,7 @@ function getIpsum(event) {
         case 'Pony':
         {
           ipsumURL='/ipsum/pony';
-          $.getJSON(ipsumURL, function(ponyGoodness) {
+          $.get(ipsumURL, function(ponyGoodness) {
             console.log(ponyGoodness);
               if (ponyGoodness) {
                   sessionStorage.setItem('ipsum', ponyGoodness.join(' '));
@@ -54,7 +54,7 @@ function getIpsum(event) {
         case 'Dino':
         {
           ipsumURL='/ipsum/dino';
-          $.getJSON(ipsumURL, function(dinoGoodness) {
+          $.get(ipsumURL, function(dinoGoodness) {
             console.log(dinoGoodness);
               if (dinoGoodness) {
                 dinoGoodness=dinoGoodness.map(function(array) {return array.map(function(element) {return element;}).join(' ');}).join('. ');
@@ -73,7 +73,7 @@ function getIpsum(event) {
         {
           console.log('Sorry--Skater not available due to CORS issues');
         //   ipsumURL='/ipsum/skater'; //has CORS issues for now
-        //   $.getJSON(ipsumURL, function(skaterGoodness) {
+        //   $.get(ipsumURL, function(skaterGoodness) {
         //     console.log(skaterGoodness);
         //       if (skaterGoodness) {
         //         skaterGoodness=skaterGoodness.map(function(array) {return array.map(function(element) {return element;}).join(' ');}).join('. ');
@@ -90,7 +90,7 @@ function getIpsum(event) {
         case 'Pig':
         {
           ipsumURL='/ipsum/pig';
-          $.getJSON(ipsumURL, function(baconGoodness) {
+          $.get(ipsumURL, function(baconGoodness) {
             console.log(baconGoodness);
             baconGoodness=baconGoodness.join('');
               if (baconGoodness) {
