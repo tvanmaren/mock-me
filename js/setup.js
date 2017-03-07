@@ -7,11 +7,11 @@ const timer = 5; //move the slides along every five seconds
 
 const watsonURL = "https://watson-tristan.herokuapp.com/watson/?text=";
 
-const imageURL = "https://watson-tristan.herokuapp.com/watson/?getPage=" + getPage + "&category=";
+const imageURL = "https://watson-tristan.herokuapp.com/images/?getPage=" + getPage + "&category=";
 
-const musicURL = "https://watson-tristan.herokuapp.com/watson/?category=";
+const musicURL = "https://watson-tristan.herokuapp.com/audio/?category=";
 
-const videoURL = "https://watson-tristan.herokuapp.com/watson/?category=";
+const videoURL = "https://watson-tristan.herokuapp.com/video/?category=";
 
 function buttonLoadStart($button, glyphiconName) {
     $button.find('span').addClass('glyphicon-spin');
