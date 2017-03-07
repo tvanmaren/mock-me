@@ -5,13 +5,13 @@ var getPage = 1; //only necessary if we're grabbing more than 20 photos
 
 const timer = 5; //move the slides along every five seconds
 
-const watsonURL = "https://watson-tristan.herokuapp.com/?text=";
+const watsonURL = "https://watson-tristan.herokuapp.com/watson/?text=";
 
-const imageURL = "https://clientID:clientSecret@api.shutterstock.com/v2/images/search?image_type=photo&license=commercial&page=" + getPage + "&orientation=horizontal&sort=random&view=full&query=";
+const imageURL = "https://watson-tristan.herokuapp.com/watson/?getPage=" + getPage + "&category=";
 
-const musicURL = "https://clientID:clientSecret@api.shutterstock.com/v2/audio/search?query=";
+const musicURL = "https://watson-tristan.herokuapp.com/watson/?category=";
 
-const videoURL = "https://clientID:clientSecret@api.shutterstock.com/v2/videos/search?query=";
+const videoURL = "https://watson-tristan.herokuapp.com/watson/?category=";
 
 function buttonLoadStart($button, glyphiconName) {
     $button.find('span').addClass('glyphicon-spin');
@@ -79,7 +79,7 @@ function getShutterStockPhotos() {
         }
     });
     if (localStorage.getItem(('images-' + category)) === null) {
-        $.getJSON(imageURL + category, function(data) {
+        $.getJSON(`${imageURL}/?getPage=${getPage}&category=${category}`, function(data) {
             processData(data, 'images', category);
             buttonLoadStop($button, 'Crackle!');
             return;
