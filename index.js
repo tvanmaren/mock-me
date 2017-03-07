@@ -1,13 +1,12 @@
 'use strict';
 
-// require('dotenv').config();
+require('dotenv').config();
 
 const b64=require('btoa');
 const express = require('express');
 const axios = require('axios');
-const WATSON_URL = process.env.WATSON_URL;
-const WATSON_PWD = process.env.WATSON_PWD;
 const WATSON_USR = process.env.WATSON_USR;
+const WATSON_PWD = process.env.WATSON_PWD;
 const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
 const SHUTTERSTOCK_SECRET = process.env.SHUTTERSTOCK_SECRET;
 const SHUTTERSTOCK_HEADERS={headers: {
