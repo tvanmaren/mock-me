@@ -110,9 +110,9 @@ app.get('/audio/', function (req, res) {
   console.log(req.query);
   const category = req.query.category;
 
-  axios.defaults.headers.common['Authorization'] = access_token;
+  axios.defaults.headers.common['Authorization'] = (Authorization);
   const musicURL = `https://clientID:clientSecret@api.shutterstock.com/v2/audio/search?query=${category}`;
-  axios.get(musicURL, SHUTTERSTOCK_HEADERS)
+  axios.get(musicURL)
     .then((data) => {
       res.json(data);
     })
@@ -125,9 +125,9 @@ app.get('/videos/', function (req, res) {
   console.log(req.query);
   const category = req.query.category;
 
-  axios.defaults.headers.common['Authorization'] = access_token;
+  axios.defaults.headers.common['Authorization'] = (Authorization);
   const videoURL = `https://clientID:clientSecret@api.shutterstock.com/v2/videos/search?query=${category}`;
-  axios.get(videoURL, SHUTTERSTOCK_HEADERS)
+  axios.get(videoURL)
     .then((data) => {
       res.json(data);
     })
