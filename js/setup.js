@@ -5,13 +5,13 @@ var getPage = 1; //only necessary if we're grabbing more than 20 photos
 
 const timer = 5; //move the slides along every five seconds
 
-const watsonURL = "https://watson-tristan.herokuapp.com/watson/?text=";
+const watsonURL = "https://watson-tristan.herokuapp.com/watson";
 
-const imageURL = "https://watson-tristan.herokuapp.com/images/";
+const imageURL = "https://watson-tristan.herokuapp.com/images";
 
-const musicURL = "https://watson-tristan.herokuapp.com/audio/";
+const musicURL = "https://watson-tristan.herokuapp.com/audio";
 
-const videoURL = "https://watson-tristan.herokuapp.com/video/";
+const videoURL = "https://watson-tristan.herokuapp.com/video";
 
 function buttonLoadStart($button, glyphiconName) {
     $button.find('span').addClass('glyphicon-spin');
@@ -49,7 +49,7 @@ function getWatsonInfo() {
     }
     var ipsumText = sessionStorage.getItem('ipsum');
     //Watson getJSON goes here
-    $.getJSON(watsonURL + ipsumText, function(data) {
+    $.getJSON(`${watsonURL}/?text=${ipsumText}`, function(data) {
         processData(data, 'tones');
         buttonLoadStop($button, 'Snap!');
         return;
