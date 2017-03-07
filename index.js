@@ -5,8 +5,8 @@ require('dotenv').config();
 const b64=require('btoa');
 const express = require('express');
 const axios = require('axios');
-const WATSON_USR = process.env.WATSON_USR;
-const WATSON_PWD = process.env.WATSON_PWD;
+const WATSON_USERNAME = process.env.WATSON_USERNAME;
+const WATSON_PASSWORD = process.env.WATSON_PASSWORD;
 const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
 const SHUTTERSTOCK_SECRET = process.env.SHUTTERSTOCK_SECRET;
 const SHUTTERSTOCK_HEADERS={headers: {
@@ -20,8 +20,8 @@ var app = express();
 var watson = require('watson-developer-cloud');
 
 var tone_analyzer = watson.tone_analyzer({
-  username: WATSON_USR,
-  password: WATSON_PWD,
+  username: WATSON_USERNAME,
+  password: WATSON_PASSWORD,
   version: 'v3',
   version_date: '2016-05-19'
 });
