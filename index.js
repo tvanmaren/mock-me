@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const b64=require('btoa');
 const express = require('express');
-const axios = require('axios');
+const request = require('request-promise');
 const WATSON_USERNAME = process.env.WATSON_USERNAME;
 const WATSON_PASSWORD = process.env.WATSON_PASSWORD;
 // const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
@@ -47,7 +47,7 @@ app.get('/ipsum/:type', function(req,res){
     pig: 'https://baconipsum.com/api/?type=just-meat'
   };
 
-  axios.get(ipsumDict[type], {headers: {"responseType": "json"}})
+  request.get({"uri": ipsumDict[type], headers: {"responseType": "json"}})
     .then((response) => {
       res.json(response.data);
     })
@@ -75,7 +75,7 @@ app.get('/images/', function(req,res){
   const category = req.query.category;
 
   const imageURL = `https://api.shutterstock.com/v2/images/search?image_type=photo&license=commercial&page=${getPage}&orientation=horizontal&sort=random&view=full&query=${category}`;
-  axios.get(imageURL, SHUTTERSTOCK_HEADERS)
+  request.get(imageURL, SHUTTERSTOCK_HEADERS)
     .then((data) => {
       console.log('images:',data);
       res.json(data);
@@ -90,7 +90,7 @@ app.get('/audio/', function(req,res){
   const category = req.query.category;
 
   const musicURL = `https://clientID:clientSecret@api.shutterstock.com/v2/audio/search?query=${category}`;
-  axios.get(musicURL, SHUTTERSTOCK_HEADERS)
+  http.get(musicURL, SHUTTERSTOCK_HEADERS)
     .then((data) => {
       res.json(data);
     })
@@ -104,7 +104,7 @@ app.get('/videos/', function(req,res){
   const category = req.query.category;
 
   const videoURL = `https://clientID:clientSecret@api.shutterstock.com/v2/videos/search?query=${category}`;
-  axios.get(videoURL, SHUTTERSTOCK_HEADERS)
+  http.get(videoURL, SHUTTERSTOCK_HEADERS)
     .then((data) => {
       res.json(data);
     })
