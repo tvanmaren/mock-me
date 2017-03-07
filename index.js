@@ -9,12 +9,12 @@ const express = require('express');
 const axios = require('axios');
 const WATSON_USERNAME = process.env.WATSON_USERNAME;
 const WATSON_PASSWORD = process.env.WATSON_PASSWORD;
-const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
+// const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
 // const SHUTTERSTOCK_SECRET = process.env.SHUTTERSTOCK_SECRET;
 // const Authorization=`Basic ${b64(`${SHUTTERSTOCK_ID}:${SHUTTERSTOCK_SECRET}`)}`;
 // const SHUTTERSTOCK_HEADERS={headers: { Authorization }};
 const access_token=process.env.SHUTTERSTOCK_TOKEN;
-const SHUTTERSTOCK_HEADERS={headers: { access_token }};
+const SHUTTERSTOCK_HEADERS={headers: { Authorization: `Bearer: ${access_token}`}};
 
 var app = express();
 
