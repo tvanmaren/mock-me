@@ -26,21 +26,21 @@ function getIpsum(event) {
     switch (ipsum) {
         case 'Hipster':
             {
-                ipsumURL = '/ipsum/hipster';
-                $.get(ipsumURL, function(hipsterGoodness) {
-                    if (hipsterGoodness.text.length) {
-                        sessionStorage.setItem('ipsum', encodeURIComponent($(hipsterGoodness.text).text())); //necessary to avoid ampersand issues
-                        $('#ipsumModal').modal('hide');
-                        $('#apiModal').modal(options);
-                        readyNextButton('#analyze','#analyze', getWatsonInfo);
-                    }
+            ipsumURL = '/ipsum/hipster';
+            $.getJSON(ipsumURL, function(hipsterGoodness) {
+                if (hipsterGoodness.text.length) {
+                    sessionStorage.setItem('ipsum', encodeURIComponent($(hipsterGoodness.text).text())); //necessary to avoid ampersand issues
+                    $('#ipsumModal').modal('hide');
+                    $('#apiModal').modal(options);
+                    readyNextButton('#analyze','#analyze', getWatsonInfo);
+                }
                 });
                 break;
             }
         case 'Pony':
         {
           ipsumURL='/ipsum/pony';
-          $.get(ipsumURL, function(ponyGoodness) {
+          $.getJSON(ipsumURL, function(ponyGoodness) {
             console.log(ponyGoodness);
               if (ponyGoodness) {
                   sessionStorage.setItem('ipsum', ponyGoodness.join(' '));
@@ -54,7 +54,7 @@ function getIpsum(event) {
         case 'Dino':
         {
           ipsumURL='/ipsum/dino';
-          $.get(ipsumURL, function(dinoGoodness) {
+          $.getJSON(ipsumURL, function(dinoGoodness) {
             console.log(dinoGoodness);
               if (dinoGoodness) {
                 dinoGoodness=dinoGoodness.map(function(array) {return array.map(function(element) {return element;}).join(' ');}).join('. ');
@@ -90,7 +90,7 @@ function getIpsum(event) {
         case 'Pig':
         {
           ipsumURL='/ipsum/pig';
-          $.get(ipsumURL, function(baconGoodness) {
+          $.getJSON(ipsumURL, function(baconGoodness) {
             console.log(baconGoodness);
             baconGoodness=baconGoodness.join('');
               if (baconGoodness) {

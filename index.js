@@ -46,7 +46,6 @@ app.get('/ipsum/:type', function(req,res){
 
   axios.get(ipsumDict[type], {headers: {"responseType": "json"}})
     .then((response) => {
-      console.log(response.data);
       res.json(response.data);
     })
     .catch((err) => {
@@ -55,7 +54,7 @@ app.get('/ipsum/:type', function(req,res){
 });
 
 app.get('/watson', function(req,res){
-  console.log(req.query);
+  console.log('watson query:',req.query);
   console.log("tone analyzer");
     tone_analyzer.tone({ text: req.query.text },
     function(err, tone) {
@@ -75,6 +74,7 @@ app.get('/images/', function(req,res){
   const imageURL = `https://clientID:clientSecret@api.shutterstock.com/v2/images/search?image_type=photo&license=commercial&page=${getPage}&orientation=horizontal&sort=random&view=full&query=${category}`;
   axios.get(imageURL, SHUTTERSTOCK_HEADERS)
     .then((data) => {
+      console.log('images:',data);
       res.json(data);
     })
     .catch((err) => {
