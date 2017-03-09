@@ -3,15 +3,15 @@
 var category = 'nature'; //default to nature photos&music
 var getPage = 1; //only necessary if we're grabbing more than 20 photos
 
-const timer = 5; //move the slides along every five seconds
+const timer = 5; //move the slides every five seconds
 
-const watsonURL = "https://watson-tristan.herokuapp.com/watson";
+const watsonURL = "/watson";
 
-const imageURL = "https://watson-tristan.herokuapp.com/images";
+const imageURL = "/images";
 
-const musicURL = "https://watson-tristan.herokuapp.com/audio";
+const musicURL = "/audio";
 
-const videoURL = "https://watson-tristan.herokuapp.com/video";
+const videoURL = "/video";
 
 function buttonLoadStart($button, glyphiconName) {
     $button.find('span').addClass('glyphicon-spin');
@@ -71,7 +71,7 @@ function getShutterStockPhotos() {
     category = parseIpsum();
     console.log('grabbing', category, 'photos');
     //PARSE Watson data for category here
-    
+
     if (localStorage.getItem(('images-' + category)) === null) {
         $.getJSON(`${imageURL}/?getPage=${getPage}&category=${category}`, function(data) {
             processData(data, 'images', category);
@@ -170,7 +170,7 @@ function insertIpsumModal() {
                 <div class="row">
                   <div class="btn-group btn-group-vertical"><button id="hipster" class="btn btn-info btn-lg">Hipster</button><button id="pony" class="btn btn-info btn-lg">Pony</button><button id="dino" class="btn btn-info btn-lg">Dino</button></div>
                   <div class="btn-group btn-group-vertical"><button class="btn btn-link btn-block"></button><button class="btn btn-link"></button><button class="btn btn-link"></button></div>
-                  <div class="btn-group btn-group-vertical"><button id="bacon" class="btn btn-info btn-lg">Pig</button><button id="skater" class="btn btn-danger btn-lg disabled">Skater</button><button id="custom" class="btn btn-lg btn-block white-background text-warning" autocomplete="off"><b>Customizer...</b></button></div>
+                  <div class="btn-group btn-group-vertical"><button id="bacon" class="btn btn-info btn-lg">Pig</button><button id="skater" class="btn btn-info btn-lg">Skater</button><button id="custom" class="btn btn-lg btn-block white-background text-warning" autocomplete="off"><b>Customizer...</b></button></div>
                 </div>
               </div>
               <div class="row text-right">

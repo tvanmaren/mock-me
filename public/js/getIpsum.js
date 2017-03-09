@@ -5,7 +5,7 @@ const options = {
     keyboard: false
 };
 
-var ipsumURL = 'http://hipsterjesus.com/api/?type=hipster-centric'; //default to hipsterIpsum
+var ipsumURL = '/ipsum/hipster'; //default to hipsterIpsum
 
 function readyNextButton(sourceID, destinationID, destinationClickFunction) {
   $(sourceID).addClass('disabled');
@@ -26,14 +26,14 @@ function getIpsum(event) {
     switch (ipsum) {
         case 'Hipster':
             {
-            ipsumURL = '/ipsum/hipster';
-            $.getJSON(ipsumURL, function(hipsterGoodness) {
-                if (hipsterGoodness.text.length) {
-                    sessionStorage.setItem('ipsum', encodeURIComponent($(hipsterGoodness.text).text())); //necessary to avoid ampersand issues
-                    $('#ipsumModal').modal('hide');
-                    $('#apiModal').modal(options);
-                    readyNextButton('#analyze','#analyze', getWatsonInfo);
-                }
+                ipsumURL = '/ipsum/hipster';
+                $.getJSON(ipsumURL, function(hipsterGoodness) {
+                    if (hipsterGoodness.text.length) {
+                        sessionStorage.setItem('ipsum', encodeURIComponent($(hipsterGoodness.text).text())); //necessary to avoid ampersand issues
+                        $('#ipsumModal').modal('hide');
+                        $('#apiModal').modal(options);
+                        readyNextButton('#analyze','#analyze', getWatsonInfo);
+                    }
                 });
                 break;
             }
@@ -69,22 +69,21 @@ function getIpsum(event) {
           });
           break;
         }
-        case 'Skater': //not currently working due to CORS issues
+        case 'Skater':
         {
-          console.log('Sorry--Skater not available due to CORS issues');
-        //   ipsumURL='/ipsum/skater'; //has CORS issues for now
-        //   $.get(ipsumURL, function(skaterGoodness) {
-        //     console.log(skaterGoodness);
-        //       if (skaterGoodness) {
-        //         skaterGoodness=skaterGoodness.map(function(array) {return array.map(function(element) {return element;}).join(' ');}).join('. ');
-        //         skaterGoodness+='.';
-        //         console.log(skaterGoodness);
-        //           sessionStorage.setItem('ipsum', skaterGoodness);
-        //           $('#ipsumModal').modal('hide');
-        //           $('#apiModal').modal(options);
-        //           readyNextButton('#analyze','#analyze', getWatsonInfo);
-        //       }
-        //   });
+          ipsumURL='/ipsum/skater';
+          $.getJSON(ipsumURL, function(skaterGoodness) {
+            console.log(skaterGoodness);
+              if (skaterGoodness) {
+                skaterGoodness=skaterGoodness.map(function(array) {return array.map(function(element) {return element;}).join(' ');}).join('. ');
+                skaterGoodness+='.';
+                console.log(skaterGoodness);
+                  sessionStorage.setItem('ipsum', skaterGoodness);
+                  $('#ipsumModal').modal('hide');
+                  $('#apiModal').modal(options);
+                  readyNextButton('#analyze','#analyze', getWatsonInfo);
+              }
+          });
           break;
         }
         case 'Pig':
