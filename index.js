@@ -116,8 +116,8 @@ app.get('/audio/', function (req, res) {
   axios.defaults.headers.common['Authorization'] = (Authorization);
   const musicURL = `https://api.shutterstock.com/v2/audio/search?query=${category}`;
   axios.get(musicURL)
-    .then((data) => {
-      res.json(data);
+    .then((result) => {
+      res.json(result.data);
     })
     .catch((err) => {
       console.log(err);
@@ -131,8 +131,8 @@ app.get('/videos/', function (req, res) {
   axios.defaults.headers.common['Authorization'] = (Authorization);
   const videoURL = `https://api.shutterstock.com/v2/videos/search?query=${category}`;
   axios.get(videoURL)
-    .then((data) => {
-      res.json(data);
+    .then((result) => {
+      res.json(result.data);
     })
     .catch((err) => {
       console.log(err);
