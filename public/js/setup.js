@@ -183,7 +183,7 @@ function insertIpsumModal() {
                 </button>
               </div>
               <div class="row text-right">
-              <a href="https://github.com/tvanmaren/mock-me"><h5>(about me)</h5></a>
+              <h5 class="bottom"><a href="https://github.com/tvanmaren/mock-me">(about me)</a></h5>
               </div>
             </div>
           </div>

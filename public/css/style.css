@@ -23,6 +23,11 @@ audio {
    display:none;
 }
 
+.bottom {
+  position: relative;
+  top: 25px;
+}
+
 .img-responsive,
 .thumbnail > img,
 .thumbnail a > img,
