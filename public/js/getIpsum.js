@@ -75,8 +75,7 @@ function getIpsum(event) {
           $.getJSON(ipsumURL, function(skaterGoodness) {
             console.log(skaterGoodness);
               if (skaterGoodness) {
-                skaterGoodness=skaterGoodness.map(function(array) {return array.map(function(element) {return element;}).join(' ');}).join('. ');
-                skaterGoodness+='.';
+                skaterGoodness=skaterGoodness.join('');
                 console.log(skaterGoodness);
                   sessionStorage.setItem('ipsum', skaterGoodness);
                   $('#ipsumModal').modal('hide');
