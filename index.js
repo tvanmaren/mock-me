@@ -36,10 +36,10 @@ var tone_analyzer = watson.tone_analyzer({
 app.use(express.static('./public'));
 
 app.all('*', function(req, res, next) {
-    res.setheader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setheader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.setheader('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token', "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+    res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token', "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
      // intercept OPTIONS method
     if ('OPTIONS' === req.method) {
       res.send(200);
