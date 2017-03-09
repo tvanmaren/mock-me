@@ -5,13 +5,13 @@ var getPage = 1; //only necessary if we're grabbing more than 20 photos
 
 const timer = 5; //move the slides along every five seconds
 
-const watsonURL = "https://watson-tristan.herokuapp.com/watson";
+const watsonURL = "/watson";
 
-const imageURL = "https://watson-tristan.herokuapp.com/images";
+const imageURL = "/images";
 
-const musicURL = "https://watson-tristan.herokuapp.com/audio";
+const musicURL = "/audio";
 
-const videoURL = "https://watson-tristan.herokuapp.com/video";
+const videoURL = "/video";
 
 function buttonLoadStart($button, glyphiconName) {
     $button.find('span').addClass('glyphicon-spin');
@@ -71,7 +71,7 @@ function getShutterStockPhotos() {
     category = parseIpsum();
     console.log('grabbing', category, 'photos');
     //PARSE Watson data for category here
-    
+
     if (localStorage.getItem(('images-' + category)) === null) {
         $.getJSON(`${imageURL}/?getPage=${getPage}&category=${category}`, function(data) {
             processData(data, 'images', category);
