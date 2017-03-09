@@ -165,8 +165,6 @@ function insertIpsumModal() {
         <div class="modal-dialog modal-md" role="document">
           <div class="modal-content">
             <h2 class="modal-title text-center">Today, I feel like a...</h2>
-            <br>
-            <a href="https://github.com/tvanmaren/mock-me"><h5>(about me)</h5></a>
             <div class="modal-body">
               <div class="text-center center-block">
                 <div class="row">
@@ -183,6 +181,9 @@ function insertIpsumModal() {
                     <div>slides</div>
                   </small>
                 </button>
+              </div>
+              <div class="row text-right">
+              <a href="https://github.com/tvanmaren/mock-me"><h5>(about me)</h5></a>
               </div>
             </div>
           </div>
