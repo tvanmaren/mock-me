@@ -195,7 +195,7 @@ function insertAPIModal() {
       <div class="modal fade bs-example-modal-md" tabindex="- 1" role="dialog" id="apiModal">
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
-          <h2 class="modal-title text-center">Click to fetch your presentation</h2>
+          <h2 class="modal-title text-center">Click to fetch your presentation</h2><h2 class="gray">(about)</h2>
           <div class="modal-body">
             <div class="text-center center-block">
               <div class="btn-group btn-group-vertical"><button id="analyze" class="btn btn-danger btn-lg disabled process"><span class="glyphicon glyphicon-cog"></span><div>Crunch Data</div></button><button class="btn btn-link process"><span class="glyphicon glyphicon-arrow-down"></span></button><button id="images" class="btn btn-danger btn-lg disabled process"><span class = "glyphicon glyphicon-picture"></span><div>Laminate Images</div></button></div>
