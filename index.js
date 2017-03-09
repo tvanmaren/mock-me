@@ -13,7 +13,6 @@ const WATSON_PASSWORD = process.env.WATSON_PASSWORD;
 const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
 const SHUTTERSTOCK_SECRET = process.env.SHUTTERSTOCK_SECRET;
 const Authorization=`Basic ${b64(SHUTTERSTOCK_ID+':'+SHUTTERSTOCK_SECRET)}`;
-console.log(Authorization);
 const SHUTTERSTOCK_HEADERS={headers: { Authorization }};
 // const access_token = process.env.SHUTTERSTOCK_TOKEN;
 // const SHUTTERSTOCK_HEADERS = {
@@ -101,7 +100,6 @@ app.get('/images/', function (req, res) {
       'query': category
     }))
     .then((result) => {
-      console.log('images:', result.data);
       res.json(result.data);
     })
     .catch((err) => {
@@ -110,7 +108,6 @@ app.get('/images/', function (req, res) {
 });
 
 app.get('/audio/', function (req, res) {
-  console.log(req.query);
   const category = req.query.category;
 
   axios.defaults.headers.common['Authorization'] = (Authorization);
@@ -124,8 +121,7 @@ app.get('/audio/', function (req, res) {
     });
 });
 
-app.get('/videos/', function (req, res) {
-  console.log(req.query);
+app.get('/video/', function (req, res) {
   const category = req.query.category;
 
   axios.defaults.headers.common['Authorization'] = (Authorization);
