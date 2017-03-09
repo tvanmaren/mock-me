@@ -3,7 +3,7 @@
 var category = 'nature'; //default to nature photos&music
 var getPage = 1; //only necessary if we're grabbing more than 20 photos
 
-const timer = 5; //move the slides along every five seconds
+const timer = 5; //move the slides every five seconds
 
 const watsonURL = "/watson";
 
