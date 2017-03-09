@@ -7,7 +7,6 @@ if (process.env.NODE_ENV !== 'production') {
 const b64=require('btoa');
 const express = require('express');
 const axios = require('axios');
-const querystring = require('querystring');
 const WATSON_USERNAME = process.env.WATSON_USERNAME;
 const WATSON_PASSWORD = process.env.WATSON_PASSWORD;
 const SHUTTERSTOCK_ID = process.env.SHUTTERSTOCK_ID;
@@ -90,15 +89,7 @@ app.get('/images/', function (req, res) {
 
   axios.defaults.headers.common['Authorization'] = (Authorization);
   const imageURL = `https://api.shutterstock.com/v2/images/search`;
-  axios.get(imageURL, querystring.stringify({
-      'image_type': 'photo',
-      'license': 'commercial',
-      'orientation': 'horizontal',
-      'sort': 'random',
-      'view': 'full',
-      'page': getPage,
-      'query': category
-    }))
+  axios.get(`${imageURL}?image_type=photo&license=commercial&orientation=horizontal&sort=random&view=full&page=${getPage}&query=${category}`)
     .then((result) => {
       res.json(result.data);
     })
