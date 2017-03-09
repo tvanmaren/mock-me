@@ -33,21 +33,21 @@ var tone_analyzer = watson.tone_analyzer({
   version_date: '2016-05-19'
 });
 
-app.use(express.static('./public'));
-
 app.all('*', function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token', "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-     // intercept OPTIONS method
-    if ('OPTIONS' === req.method) {
-      res.send(200);
-    }
-    else {
-      next();
-    }
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token', "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+  // intercept OPTIONS method
+  if ('OPTIONS' === req.method) {
+    res.send(200);
+  }
+  else {
+    next();
+  }
 });
+
+app.use(express.static('./public'));
 
 app.get('/ipsum/:type', function (req, res) {
   const type = req.params.type;
@@ -73,7 +73,7 @@ app.get('/ipsum/:type', function (req, res) {
     });
 });
 
-app.get('/watson', function (req, res) {
+app.get('/watson/', function (req, res) {
   console.log('watson query:', req.query);
   console.log("tone analyzer");
   tone_analyzer.tone({
