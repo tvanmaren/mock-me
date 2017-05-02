@@ -21,11 +21,6 @@ https://wireframe.cc/9O7yRs
 https://wireframe.cc/c7Hcup
 https://wireframe.cc/EuLmTx
 
-## Agile Development Process:
-
-To see a sample of how I approach agile development under a time crunch, go to
-### https://www.pivotaltracker.com/n/projects/1908917
-
 ## Original MVP goals:
 User can retrieve hipster ipsum data from hipsterjesus via button
 Data can be automatically analyzed by Watson's Tone Analyzer
